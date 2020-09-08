@@ -1,8 +1,0 @@
-koik on elemendid- pannakse kirja margenditeha
-<element>sisu</element>
-empty - tuhi elemendid
-<elemendinimi>
-<center> elementi ei kasuta
-serverisse
-putty- lin2.tlu.ee- login - ssh karlkin@greeny.cs.tlu.ee - 
-<meta name="viewpoert" content="width=device-width, initial-scale=1"/>
