@@ -5,3 +5,4 @@ empty - tuhi elemendid
 <center> elementi ei kasuta
 serverisse
 putty- lin2.tlu.ee- login - ssh karlkin@greeny.cs.tlu.ee - 
+<meta name="viewpoert" content="width=device-width, initial-scale=1"/>
