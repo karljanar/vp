@@ -9,6 +9,14 @@
     if($hournow >= 8 and $hournow <= 18){
         $partofday = "akadeemiline aeg";
     }
+    //semestri kulg
+    $semesterstart = new DateTime("2020-8-31");
+    $semesterend = new DateTime("2020-12-13");
+    $semesterduration = $semesterstart->diff($semesterend);
+    $semesterdurationdays = $semesterduration->format("%r%a");
+    $today = new DateTime("now");
+    //if($semesterstartdays)
+    $semesterdurationdaysfromnow = $today->diff($semesterend);
 ?>
 <!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
@@ -32,6 +40,7 @@
     <p style="color:firebrick"><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv.</font></p>
     <p style="color:greenyellow">Aega läks, aga lõpuks sai serverile ligi.</p>
     <p><?php echo "Parajasti on ".$partofday."."; ?></p>
+    <p><?php echo "Semestri lõpuni on ".$semesterdurationdays." päeva.";?></p>
     <p style="color:springgreen">Koodi asjad leitavad <a href="https://github.com/karljanar/vp" style="color: snow">GitHubis.</a></p>
 </body>
 </html>
