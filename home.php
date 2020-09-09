@@ -32,5 +32,6 @@
     <p style="color:firebrick"><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv.</font></p>
     <p style="color:greenyellow">Aega läks, aga lõpuks sai serverile ligi.</p>
     <p><?php echo "Parajasti on ".$partofday."."; ?></p>
+    <p style="color:springgreen">Koodi asjad leitavad <a href="https://github.com/karljanar/vp" style="color: snow">GitHubis.</a></p>
 </body>
 </html>
