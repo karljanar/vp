@@ -2,7 +2,7 @@
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
     $hournow = date("H");
-    $partofday = "lihtsalt aeg";
+    $partofday = "vaba aeg";
     if($hournow < 7){
         $partofday = "uneaeg";
     }
@@ -36,8 +36,8 @@
     <h1><?php echo $username; ?>i Probleem </h1>
     <p style="color:green">Särkides ja värkides pole probleemi!</p>
     <p><font size="5">Leht avati: <?php echo $fulltimenow; ?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
     <p><?php echo "Semester kestab ".$semesterdurationdays." päeva.";?></p>
-    <p><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></p>
     <p style="color:springgreen">Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color: snow">TLU Digitehnoloogiate Instituudis.</a></p>
     <img src="les.jpg">
     <p style="color:firebrick"><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv.</font></p>
