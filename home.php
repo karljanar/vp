@@ -17,7 +17,8 @@
     $today = new DateTime("now");
     //if($semesterstartdays)
     $semesterdurationdaysfromnow = $today->diff($semesterend);
-    $semesterdurationdaysfromnowdays = $semesterdurationdaysfromnow->format("%r%a")
+    $semesterdurationdaysfromnowdays = $semesterdurationdaysfromnow->format("%r%a");
+    $semestercompletion = round(100 - ($semesterdurationdaysfromnowdays / $semesterdurationdays) * 100, 2);
 ?>
 <!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
@@ -37,6 +38,7 @@
     <p style="color:green">Särkides ja värkides pole probleemi!</p>
     <p><font size="5">Leht avati: <?php echo $fulltimenow; ?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo "Läbitud on ".$semestercompletion."% semestrist.";?></font></p>
     <p><?php echo "Semester kestab ".$semesterdurationdays." päeva.";?></p>
     <p style="color:springgreen">Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color: snow">TLU Digitehnoloogiate Instituudis.</a></p>
     <img src="les.jpg">
