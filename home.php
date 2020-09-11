@@ -15,7 +15,13 @@
     $semesterduration = $semesterstart->diff($semesterend);
     $semesterdurationdays = $semesterduration->format("%r%a");
     $today = new DateTime("now");
-    //if($semesterstartdays)
+    $unidays = "";
+    if($semesterstart <= $today){
+        $unidays = "Praegu käib semester.";
+    }
+    if($semesterstart > $today){
+        $unidays = "Praegu semester ei käi.";
+    }
     $semesterdurationdaysfromnow = $today->diff($semesterend);
     $semesterdurationdaysfromnowdays = $semesterdurationdaysfromnow->format("%r%a");
     $semestercompletion = round(100 - ($semesterdurationdaysfromnowdays / $semesterdurationdays) * 100, 2);
@@ -37,6 +43,7 @@
     <h1><?php echo $username; ?>i Probleem </h1>
     <p style="color:green">Särkides ja värkides pole probleemi!</p>
     <p><font size="5">Leht avati: <?php echo $fulltimenow; ?></font></p>
+    <p><?php echo $unidays;?></p>
     <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Läbitud on ".$semestercompletion."% semestrist.";?></font></p>
     <p><?php echo "Semester kestab ".$semesterdurationdays." päeva.";?></p>
