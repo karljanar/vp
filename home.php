@@ -2,12 +2,21 @@
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
     $hournow = date("H");
-    $partofday = "vaba aeg";
-    if($hournow < 7){
+    $partofday = "";
+    if($hournow <= 7 and $hournow >= 24){
         $partofday = "uneaeg";
     }
     if($hournow >= 8 and $hournow <= 18){
         $partofday = "akadeemiline aeg";
+    }
+    if($hournow > 18 and $hournow <= 20){
+        $partofday = "trenni aeg";
+    }
+    if($hournow > 20 and $hournow < 22){
+        $partofday = "pela aeg";
+    }
+    if($hournow >= 22 and $hournow < 24){
+        $partofday = "ettevalmistus järgnevaks päevaks";
     }
     //semestri kulg
     $semesterstart = new DateTime("2020-8-31");
@@ -16,15 +25,23 @@
     $semesterdurationdays = $semesterduration->format("%r%a");
     $today = new DateTime("now");
     $unidays = "";
-    if($semesterstart <= $today){
+    if($semesterstart <= $today and $semesterend >= $today){
         $unidays = "Praegu käib semester.";
     }
-    if($semesterstart > $today){
+    else{
         $unidays = "Praegu semester ei käi.";
     }
     $semesterdurationdaysfromnow = $today->diff($semesterend);
     $semesterdurationdaysfromnowdays = $semesterdurationdaysfromnow->format("%r%a");
     $semestercompletion = round(100 - ($semesterdurationdaysfromnowdays / $semesterdurationdays) * 100, 2);
+    if($semestercompletion >= 100){
+        $semestercompletion = 100;
+    }
+    elseif ($semestercompletion <= 0){
+        $semestercompletion = 0;
+    }
+    $completedsemester = $semesterstart->diff($today);
+    $dayscompletedsemester = $completedsemester->format("%r%a");
 ?>
 <!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
@@ -36,22 +53,24 @@
              background-color: #2e3440;
              background-repeat: no-repeat;
              background-size: auto;
+             color:whitesmoke;
          }
     </style> 
 </head>
 <body>
     <h1><?php echo $username; ?>i Probleem </h1>
-    <p style="color:green">Särkides ja värkides pole probleemi!</p>
-    <p><font size="5">Leht avati: <?php echo $fulltimenow; ?></font></p>
-    <p><?php echo $unidays;?></p>
+    <p>Särkides ja värkides pole probleemi!</p>
+    <p style="color:firebrick"><font size="5">Leht avati: <?php echo $fulltimenow; ?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo "Parajasti on ".$partofday."."; ?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo $unidays;?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Läbitud on ".$semestercompletion."% semestrist.";?></font></p>
-    <p><?php echo "Semester kestab ".$semesterdurationdays." päeva.";?></p>
-    <p style="color:springgreen">Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color: snow">TLU Digitehnoloogiate Instituudis.</a></p>
+    <p style="color:firebrick"><font size="5"><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo "Praeguseks on semestris läbitud ".$dayscompletedsemester." päeva.";?></font></p>
+    <p>Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color:deepskyblue">TLU Digitehnoloogiate Instituudis.</a></p>
     <img src="les.jpg">
-    <p style="color:firebrick"><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv.</font></p>
-    <p style="color:greenyellow">Aega läks, aga lõpuks sai serverile ligi.</p>
-    <p><?php echo "Parajasti on ".$partofday."."; ?></p>
-    <p style="color:springgreen">Koodi asjad leitavad <a href="https://github.com/karljanar/vp" style="color: snow">GitHubis.</a></p>
+    <p><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv.</font></p>
+    <p>Aega läks, aga lõpuks sai serverile ligi.</p>
+    <p>Koodi asjad leitavad <a href="https://github.com/karljanar/vp" style="color:deepskyblue">GitHubis.</a></p>
 </body>
 </html>
