@@ -1,3 +1,4 @@
+<!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <?php
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
@@ -33,17 +34,18 @@
     }
     $semesterdurationdaysfromnow = $today->diff($semesterend);
     $semesterdurationdaysfromnowdays = $semesterdurationdaysfromnow->format("%r%a");
-    $semestercompletion = round(100 - ($semesterdurationdaysfromnowdays / $semesterdurationdays) * 100, 2);
+    $completedsemester = $semesterstart->diff($today);
+    $dayscompletedsemester = $completedsemester->format("%r%a");
+    $semestercompletion = round(($dayscompletedsemester / $semesterdurationdays) * 100, 2);
     if($semestercompletion >= 100){
         $semestercompletion = 100;
     }
     elseif ($semestercompletion <= 0){
         $semestercompletion = 0;
     }
-    $completedsemester = $semesterstart->diff($today);
-    $dayscompletedsemester = $completedsemester->format("%r%a");
+
 ?>
-<!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
+
 <html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
 <head>
     <meta charset="utf-8">
