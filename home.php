@@ -1,4 +1,3 @@
-<!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <?php
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
@@ -45,7 +44,7 @@
     }
 
 ?>
-
+<!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
 <head>
     <meta charset="utf-8">
