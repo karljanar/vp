@@ -26,7 +26,7 @@
     $today = new DateTime("now");
     $unidays = "";
     if($semesterstart <= $today and $semesterend >= $today){
-        $unidays = "Praegu käib semester.";
+        $unidays = "Semester on täies hoos.";
     }
     else{
         $unidays = "Praegu semester ei käi.";
@@ -63,14 +63,13 @@
     <p>Särkides ja värkides pole probleemi!</p>
     <p style="color:firebrick"><font size="5">Leht avati: <?php echo $fulltimenow; ?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Parajasti on ".$partofday."."; ?></font></p>
-    <p style="color:firebrick"><font size="5"><?php echo $unidays;?></font></p>
-    <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
-    <p style="color:firebrick"><font size="5"><?php echo "Läbitud on ".$semestercompletion."% semestrist.";?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo $unidays." Läbitud on ".$semestercompletion."% semestrist.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></font></p>
+    <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Praeguseks on semestris läbitud ".$dayscompletedsemester." päeva.";?></font></p>
     <p>Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color:deepskyblue">TLU Digitehnoloogiate Instituudis.</a></p>
     <img src="les.jpg">
-    <p><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv.</font></p>
+    <p><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv, mis käib kokku minu firefox css themega.</font></p>
     <p>Aega läks, aga lõpuks sai serverile ligi.</p>
     <p>Koodi asjad leitavad <a href="https://github.com/karljanar/vp" style="color:deepskyblue">GitHubis.</a></p>
 </body>
