@@ -6,6 +6,7 @@
         $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
         //valmistan ette sql kasu andmete kirjutamiseks
         $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES(?)");
+        echo $conn->error;
     }
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
