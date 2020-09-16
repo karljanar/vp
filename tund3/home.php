@@ -1,5 +1,30 @@
 <?php
-    var_dump($_POST);
+    require("../../../config.php");
+    $database = 'if20_karljanar_ki_1';
+    if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
+        //loome uhenduse
+        $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
+        //valmistan ette sql kasu andmete kirjutamiseks
+        $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES (?)");
+        echo $conn->error;
+        // i -int, d- dec, s-str
+        $stmt->bind_param("s", $_POST["ideainput"]);
+        $stmt->execute();
+        $stmt->close();
+        $conn->close();
+    }
+    //loe ab senised utlused
+    $ideahtml = "";
+    $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
+    $stmt = $conn->prepare("SELECT idea FROM myideas");
+    //seon tulemuse muutaujaga
+    $stmt->bind_result($ideafromdb);
+    $stmt->execute();
+    while($stmt->fetch()){
+        $ideahtml .= "<p>".$ideafromdb."</p>";
+    }
+    $stmt->close();
+    $conn->close();
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
     $hournow = date("H");
@@ -53,7 +78,7 @@
     $imghtml = "";
     $piccount = count($picfiles);
     for($i = 0;$i < $piccount; $i++){
-        $imghtml .= '<img src="vp_pics/'. $picfiles[$i] .'" alt="pildid TLUst">';
+        $imghtml .= '<img src="../vp_pics/'. $picfiles[$i] .'" alt="pildid TLUst">';
     }
     require("header.php");
 ?>
@@ -83,5 +108,7 @@
         <input type="text" name="ideainput" placeholder="mõttekoht">
         <input type="submit" name="ideasubmit" value="Saada teele">
     </form>
+    <hr>
+    <?php echo $ideahtml; ?>
 </body>
 </html>
