@@ -47,7 +47,6 @@
         $semestercompletion = 0;
     }
 
-
 ?>
 <!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
 <html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
