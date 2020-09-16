@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="728a6703-5de3-48e1-8736-45b6029c6555" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/tlu_astra_600x400_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/tlu_terra_600x400_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/tlu_terra_600x400_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/tlu_terra_600x400_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tund3/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/tund3/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vp_pics/vp_banner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vp_pics/vp_logo_small.png" beforeDir="false" />
-    </list>
+    <list default="true" id="728a6703-5de3-48e1-8736-45b6029c6555" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +45,7 @@
       <workItem from="1600111115168" duration="271000" />
       <workItem from="1600111387909" duration="150000" />
       <workItem from="1600111735994" duration="283000" />
-      <workItem from="1600247182734" duration="9243000" />
+      <workItem from="1600247182734" duration="9354000" />
     </task>
     <servers />
   </component>

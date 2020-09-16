@@ -1,5 +1,12 @@
 <?php
-    var_dump($_POST);
+    require("../../../config.php");
+    $database = 'if20_karljanar_ki_1';
+    if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
+        //loome uhenduse
+        $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
+        //valmistan ette sql kasu andmete kirjutamiseks
+        $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES(?)");
+    }
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
     $hournow = date("H");
