@@ -1,4 +1,5 @@
 <?php
+    var_dump($_POST);
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
     $hournow = date("H");
@@ -46,35 +47,41 @@
     elseif ($semestercompletion <= 0){
         $semestercompletion = 0;
     }
-
+    //loeme kataloogist piltide nimekirja.
+    $allfiles = scandir("vp_pics/");
+    $picfiles = array_slice($allfiles, 2);
+    $imghtml = "";
+    $piccount = count($picfiles);
+    for($i = 0;$i < $piccount; $i++){
+        $imghtml .= '<img src="vp_pics/'. $picfiles[$i] .'" alt="pildid TLUst">';
+    }
+    require("header.php");
 ?>
-<!DOCTYPE html><!--browseri jaoks, et kiirelt saaks aru, millega  on tehu-->
-<html lang="et"><!--vajalik nt search enginile, et n'idata mis riigi lehega nt tegu-->
-<head>
-    <meta charset="utf-8">
-    <title><?php echo $username; ?> ehitab lehte</title>
-    <style>
-         body {
-             background-color: #2e3440;
-             background-repeat: no-repeat;
-             background-size: auto;
-             color:whitesmoke;
-         }
-    </style> 
-</head>
+
 <body>
+    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo.">
     <h1><?php echo $username; ?>i Probleem </h1>
     <p>Särkides ja värkides pole probleemi!</p>
+    <hr>
     <p style="color:firebrick"><font size="5">Leht avati: <?php echo $weekdaynameset[$weekdaynow-1].", ". $fulltimenow; ?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Parajasti on ".$partofday."."; ?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo $unidays." Läbitud on ".$semestercompletion."% semestrist.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></font></p>
     <p style="color:firebrick"><font size="5"><?php echo "Praeguseks on semestris läbitud ".$dayscompletedsemester." päeva.";?></font></p>
+    <hr>
     <p>Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color:deepskyblue">TLU Digitehnoloogiate Instituudis.</a></p>
-    <img src="les.jpg">
+    <img src="les.jpg" alt="Esimene pilt netis.">
     <p><font size="5">Siin on kajastatud esimene pilt, mis laeti internetti <br>ning lehe taustaks on täiesti lambi värv, mis käib kokku minu firefox css themega.</font></p>
     <p>Aega läks, aga lõpuks sai serverile ligi.</p>
     <p>Koodi asjad leitavad <a href="https://github.com/karljanar/vp" style="color:deepskyblue">GitHubis.</a></p>
+    <hr>
+    <?php echo $imghtml; ?>
+    <hr>
+    <form method="POST">
+        <label>Kirjutage oma esimene lambi mõte! </label>
+        <input type="text" name="ideainput" placeholder="mõttekoht">
+        <input type="submit" name="ideasubmit" value="Saada teele">
+    </form>
 </body>
 </html>

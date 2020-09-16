@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="728a6703-5de3-48e1-8736-45b6029c6555" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/tlu_astra_600x400_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/tlu_terra_600x400_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/tlu_terra_600x400_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/tlu_terra_600x400_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tund3/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/tund3/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vp_pics/vp_banner.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vp_pics/vp_logo_small.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +23,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/tund3/home.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4" />
   <component name="ProjectId" id="1hPesDyf10PqhdiTmAZGsPuSaHe" />
   <component name="ProjectViewState">
@@ -22,10 +33,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="settings.editor.selected.configurable" value="tasks.servers" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -43,7 +55,7 @@
       <workItem from="1600111115168" duration="271000" />
       <workItem from="1600111387909" duration="150000" />
       <workItem from="1600111735994" duration="283000" />
-      <workItem from="1600247182734" duration="3172000" />
+      <workItem from="1600247182734" duration="9243000" />
     </task>
     <servers />
   </component>
@@ -65,10 +77,14 @@
     </state>
     <state x="1149" y="285" width="432" height="487" key="FileChooserDialogImpl/0.0.1920.1035@0.0.1920.1035" timestamp="1600111383927" />
     <state x="1149" y="286" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599917418607" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1600249301504">
+    <state x="413" y="213" key="SettingsEditor" timestamp="1600255540497">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1035@0.0.1920.1035" timestamp="1600249301504" />
+    <state x="413" y="213" key="SettingsEditor/0.0.1920.1035@0.0.1920.1035" timestamp="1600255540497" />
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599919004147" />
+    <state x="1106" y="235" key="run.anything.popup" timestamp="1600255163632">
+      <screen x="0" y="0" width="1920" height="1035" />
+    </state>
+    <state x="1106" y="235" key="run.anything.popup/0.0.1920.1035@0.0.1920.1035" timestamp="1600255163632" />
   </component>
 </project>
