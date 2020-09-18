@@ -23,10 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/tund3/home.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectId" id="1hPesDyf10PqhdiTmAZGsPuSaHe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -56,6 +53,8 @@
       <workItem from="1600111387909" duration="150000" />
       <workItem from="1600111735994" duration="283000" />
       <workItem from="1600247182734" duration="9243000" />
+      <workItem from="1600365814776" duration="180000" />
+      <workItem from="1600423378172" duration="61000" />
     </task>
     <servers />
   </component>
@@ -67,16 +66,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="949" y="186" key="#CLI_Interpreters/0.0.1920.1040@0.0.1920.1040" timestamp="1599917475215" />
-    <state x="1147" y="137" key="#PHP" timestamp="1600111527408">
-      <screen x="0" y="0" width="1920" height="1035" />
+    <state x="1147" y="143" key="#PHP" timestamp="1600365832435">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1147" y="137" key="#PHP/0.0.1920.1035@0.0.1920.1035" timestamp="1600111527408" />
-    <state x="1147" y="167" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1599917477783" />
+    <state x="1147" y="143" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1600365832435" />
     <state x="1149" y="285" width="432" height="487" key="FileChooserDialogImpl" timestamp="1600111383927">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>
     <state x="1149" y="285" width="432" height="487" key="FileChooserDialogImpl/0.0.1920.1035@0.0.1920.1035" timestamp="1600111383927" />
     <state x="1149" y="286" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599917418607" />
+    <state x="1274" y="439" key="NewPhpFileDialog" timestamp="1600423415728">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1274" y="439" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600423415728" />
     <state x="413" y="213" key="SettingsEditor" timestamp="1600255540497">
       <screen x="0" y="0" width="1920" height="1035" />
     </state>

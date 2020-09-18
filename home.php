@@ -1,5 +1,5 @@
 <?php
-    var_dump($_POST);
+    //var_dump($_POST);
     $username = "Janar";
     $fulltimenow = date("d.m.Y H:i:s");
     $hournow = date("H");
@@ -60,6 +60,11 @@
 
 <body>
     <img src="img/vp_banner.png" alt="Veebiproge kursuse logo.">
+    <div class="topnav">
+        <a class="active" href="#home">Kodu</a>
+        <a href="#kirj">Kirjuta mõtteid</a>
+        <a href="#contact">Loe mõtteid</a>
+    </div>
     <h1><?php echo $username; ?>i Probleem </h1>
     <p>Särkides ja värkides pole probleemi!</p>
     <hr>
