@@ -16,12 +16,11 @@ require("../../config.php");
             color: whitesmoke;
             font-family: Arial, Helvetica, sans-serif;
         }
-        /* Add a black background color to the top navigation */
         .topnav {
             background-color: #2e3440;
             overflow: hidden;
+            text-align: center;
         }
-        /* Style the links inside the navigation bar */
         .topnav a {
             float: none;
             color: whitesmoke;
@@ -35,7 +34,7 @@ require("../../config.php");
             color: black;
         }
         .topnav a.active {
-            background-color: firebrick;
+            background-color: #56A3A6;
             color: white;
         }
 
