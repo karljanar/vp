@@ -78,15 +78,10 @@ $imghtml ='<img src="vp_pics/'. $picfiles[$picnum] .'" alt="pildid TLUst" class=
         text-decoration: none;
         font-size: 20px;
     }
-    .center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 80%;
-    }
+
     </style>
     </head>
-    <body>
+<body>
     <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
     <hr>
     <div class="topnav">

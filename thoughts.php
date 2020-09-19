@@ -17,13 +17,15 @@ $conn->close();
         </style>
     </head>
     <body>
-    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo.">
+    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
+    <hr>
     <div class="topnav">
         <a href="home.php">Kodu</a>
         <a href="writethoughts.php">Kirjuta mõtteid</a>
         <a class="active" href="thoughts.php">Loe mõtteid</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
     </div>
+    <hr>
     <?php echo $ideahtml; ?>
 </body>
 </html>

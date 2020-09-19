@@ -18,7 +18,8 @@ if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
     </style>
     </head>
     <body>
-    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo.">
+    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
+    <hr>
     <div class="topnav">
         <a href="home.php">Kodu</a>
         <a class="active" href="writethoughts.php">Kirjuta mõtteid</a>
@@ -27,7 +28,7 @@ if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
     </div>
     <hr>
     <form method="POST">
-        <label>Kirjutage oma esimene lambi mõte! </label>
+        <label>Kirjutage oma esimene lambi mõte. </label>
         <input type="text" name="ideainput" placeholder="mõttekoht">
         <input type="submit" name="ideasubmit" value="Saada teele">
     </form>
