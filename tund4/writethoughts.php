@@ -24,8 +24,6 @@ if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
         <a href="home.php">Kodu</a>
         <a class="active" href="writethoughts.php">Kirjuta mõtteid</a>
         <a href="thoughts.php">Loe mõtteid</a>
-        <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="addfilms.php">Lisa filme</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
     </div>
     <hr>
