@@ -10,6 +10,7 @@
     $email = "";
     $gender = "";
     $passwordmatcherror = "";
+    $storeinfo = "";
 
     if(isset($_POST["registersubmit"])){
         $firstname = $_POST["firstnameinput"];
@@ -36,7 +37,7 @@
             $gendererror = "Sisestage sugu.";
         }
         if(empty($firstnameerror) and empty($lastnameerror) and empty($emailerror) and empty($passworderror) and empty($passwordmatcherror) and empty($gendererror)){
-            $storeinfo = "";
+            $storeinfo = "done";
         }
     }
 ?>
@@ -87,6 +88,7 @@
         <label for="genderfemale">Naine</label>
         <span style="color:firebrick"><?php echo $gendererror; ?></span><br>
         <input type="submit" name="registersubmit" id="registersubmit" value="Registreeri">
+        <p><?php echo $storeinfo; ?></p>
     </form>
 </body>
 </html>
