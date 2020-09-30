@@ -1,6 +1,7 @@
 <?php
     require("header.php");
     require("fnc_common.php");
+    require("fnc_user.php");
     $firstnameerror = "";
     $lastnameerror = "";
     $emailerror = "";
@@ -13,8 +14,9 @@
     $birthyearerror = "";
     $firstname = "";
     $lastname = "";
-    $email = "";
+    $email = null;
     $gender = "";
+    $result = "";
     $notice = "";
     $birthdate = null;
     $birthday = null;
@@ -72,8 +74,23 @@
         if(($_POST["passwordinput"]) != ($_POST["passwordsecondaryinput"])){
             $passwordmatcherror = "Paroolid ei kattu.";
         }
-        if(empty($firstnameerror) and empty($lastnameerror) and empty($emailerror) and empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror) and empty($passworderror) and empty($passwordmatcherror) and empty($gendererror)){
-            $notice = "done";
+        if(empty($firstnameerror) and empty($lastnameerror) and empty($emailerror) and empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror) and empty($birthdateerror) and empty($passworderror) and empty($passwordmatcherror) and empty($gendererror)){
+            $result = signup($firstname, $lastname, $email, $gender, $birthdate, $_POST["passwordinput"]);
+            //$result = "done";
+            if($result == "ok"){
+                $notice = "Kasutaja on loodud!";
+                $firstname = "";
+                $lastname = "";
+                $gender = "";
+                $birthdate = null;
+                $birthday = null;
+                $birthmonth = null;
+                $birthyear = null;
+                $email = null;
+            } else {
+                $notice = "Kahjuks tekkis tehniline viga: " .$result;
+            }
+            
         }
     }
 ?>
@@ -104,13 +121,13 @@
     <form class="register" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <label>Eesnimi: </label>
         <input type="text" name="firstnameinput" id="firstnameinput" value="<?php echo $firstname; ?>">
-        <span style="color:firebrick"><?php echo $firstnameerror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $firstnameerror; ?></span><br>
         <label>Perekonnanimi: </label>
         <input type="text" name="lastnameinput" id="lastnameinput" value="<?php echo $lastname; ?>">
-        <span style="color:firebrick"><?php echo $lastnameerror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $lastnameerror; ?></span><br>
         <label>E-post: </label>
         <input type="email" name="emailinput" id="emailinput" value="<?php echo $email; ?>">
-        <span style="color:firebrick"><?php echo $emailerror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $emailerror; ?></span><br>
         <label for="birthdayinput">Sünnipäev: </label>
 		  <?php
 			echo '<select name="birthdayinput" id="birthdayinput">' ."\n";
@@ -151,19 +168,19 @@
             echo "</select> \n";
         ?>
         <br>
-        <span style="color:firebrick"><?php echo $birthdateerror ." " .$birthdayerror ." " .$birthmontherror ." " .$birthyearerror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $birthdateerror ." " .$birthdayerror ." " .$birthmontherror ." " .$birthyearerror; ?></span><br>
         <label>Sugu: </label>
         <input type="radio" name="genderinput" id="gendermale" value="1" <?php if($gender == "1"){echo " checked";}?>>
         <label for="gendermale">Mees</label>
         <input type="radio" name="genderinput" id="genderfemale" value="2" <?php if($gender == "2"){echo " checked";}?>>
         <label for="genderfemale">Naine</label>
-        <span style="color:firebrick"><?php echo $gendererror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $gendererror; ?></span><br>
         <label>Parool: </label>
         <input type="password" name="passwordinput" id="passwordinput" placeholder="parool">
-        <span style="color:firebrick"><?php echo $passworderror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $passworderror; ?></span><br>
         <label>Korrake parooli: </label>
         <input type="password" name="passwordsecondaryinput" id="passwordsecondaryinput" placeholder="parool">
-        <span style="color:firebrick"><?php echo $passwordmatcherror; ?></span><br>
+        <span style="color:#ff0000"><?php echo $passwordmatcherror; ?></span><br>
         
         <input type="submit" name="registersubmit" id="registersubmit" value="Registreeri">
         <p><?php echo "&nbsp; &nbsp; &nbsp;" .$notice; ?></p>
