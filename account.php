@@ -1,31 +1,70 @@
 <?php
     require("header.php");
+    require("fnc_common.php");
     $firstnameerror = "";
     $lastnameerror = "";
     $emailerror = "";
     $passworderror = "";
+    $passwordmatcherror = "";
     $gendererror = "";
+    $birthdateerror = "";
+    $birthdayerror = "";
+    $birthmontherror = "";
+    $birthyearerror = "";
     $firstname = "";
     $lastname = "";
     $email = "";
     $gender = "";
-    $passwordmatcherror = "";
-    $storeinfo = "";
+    $notice = "";
+    $birthdate = null;
+    $birthday = null;
+    $birthmonth = null;
+    $birthyear = null;
+    $monthnameset = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
 
     if(isset($_POST["registersubmit"])){
-        $firstname = $_POST["firstnameinput"];
-        $lastname = $_POST["lastnameinput"];
-        $email = $_POST["emailinput"];
-        $gender = $_POST["genderinput"];
-
-        if(empty($_POST["firstnameinput"])){
+        if(!empty($_POST["firstnameinput"])){
+            $firstname = test_input($_POST["firstnameinput"]);
+        } else {
             $firstnameerror = "Sisestage eesnimi.";
         }
-        if(empty($_POST["lastnameinput"])){
+        if(!empty($_POST["lastnameinput"])){
+            $lastname = test_input($_POST["lastnameinput"]);  
+        } else{
             $lastnameerror = "Sisestage perekonnanimi.";
         }
-        if(empty($_POST["emailinput"])){
+        if(!empty($_POST["emailinput"])){
+            $email = test_input($_POST["emailinput"]);
+        } else{
             $emailerror = "Sisestage e-post.";
+        }
+        if(isset($_POST["birthdayinput"])){
+            $birthday = intval($_POST["birthdayinput"]);
+        } else {
+            $birthdayerror = "Palun vali sünnikuupäev!";
+        }
+        if(isset($_POST["birthmonthinput"])){
+            $birthmonth = intval($_POST["birthmonthinput"]);
+        } else {
+            $birthmontherror = "Palun vali sünnikuu!";
+        }
+        if(isset($_POST["birthyearinput"])){
+            $birthyear = intval($_POST["birthyearinput"]);
+        } else {
+            $birthyearerror = "Palun vali sünni aasta!";
+        }
+        if(empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror)){
+            if(checkdate($birthmonth, $birthday, $birthyear)){
+                $tempdate = new DateTime($birthyear ."-" .$birthmonth ."-" .$birthday);
+                $birthdate = $tempdate->format("Y-m-d");
+            } else {
+                $birthdateerror = "Kontrollige kuupäeva.";
+            }
+        }
+        if(!empty($_POST["genderinput"])){
+            $gender = intval($_POST["genderinput"]);
+        } else{
+            $gendererror = "Sisestage sugu.";
         }
         if(strlen($_POST["passwordinput"]) < 8){
             $passworderror = "Liiga lühike parool.";
@@ -33,11 +72,8 @@
         if(($_POST["passwordinput"]) != ($_POST["passwordsecondaryinput"])){
             $passwordmatcherror = "Paroolid ei kattu.";
         }
-        if(empty($_POST["genderinput"])){
-            $gendererror = "Sisestage sugu.";
-        }
-        if(empty($firstnameerror) and empty($lastnameerror) and empty($emailerror) and empty($passworderror) and empty($passwordmatcherror) and empty($gendererror)){
-            $storeinfo = "done";
+        if(empty($firstnameerror) and empty($lastnameerror) and empty($emailerror) and empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror) and empty($passworderror) and empty($passwordmatcherror) and empty($gendererror)){
+            $notice = "done";
         }
     }
 ?>
@@ -65,7 +101,7 @@
         <a href="https://github.com/karljanar/vp">GitHub</a>
     </div>
     <hr>
-    <form class="register" method="POST">
+    <form class="register" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <label>Eesnimi: </label>
         <input type="text" name="firstnameinput" id="firstnameinput" value="<?php echo $firstname; ?>">
         <span style="color:firebrick"><?php echo $firstnameerror; ?></span><br>
@@ -75,20 +111,62 @@
         <label>E-post: </label>
         <input type="email" name="emailinput" id="emailinput" value="<?php echo $email; ?>">
         <span style="color:firebrick"><?php echo $emailerror; ?></span><br>
-        <label>Parool: </label>
-        <input type="password" name="passwordinput" id="passwordinput" placeholder="parool">
-        <span style="color:firebrick"><?php echo $passworderror; ?></span><br>
-        <label>Korrake parooli: </label>
-        <input type="password" name="passwordsecondaryinput" id="passwordsecondaryinput" placeholder="parool">
-        <span style="color:firebrick"><?php echo $passwordmatcherror; ?></span><br>
+        <label for="birthdayinput">Sünnipäev: </label>
+		  <?php
+			echo '<select name="birthdayinput" id="birthdayinput">' ."\n";
+			echo '<option value="" selected disabled>päev</option>' ."\n";
+			for ($i = 1; $i < 32; $i ++){
+				echo '<option value="' .$i .'"';
+				if ($i == $birthday){
+					echo " selected";
+				}
+				echo ">" .$i ."</option> \n";
+			}
+			echo "</select> \n";
+		  ?>
+	    <label for="birthmonthinput">Sünnikuu: </label>
+        <?php
+            echo '<select name="birthmonthinput" id="birthmonthinput">' ."\n";
+            echo '<option value="" selected disabled>kuu</option>' ."\n";
+            for ($i = 1; $i < 13; $i ++){
+                echo '<option value="' .$i .'"';
+                if ($i == $birthmonth){
+                    echo " selected";
+                }
+                echo ">" .$monthnameset[$i - 1] ."</option> \n";
+            }
+            echo "</select> \n";
+        ?>
+        <label for="birthyearinput">Sünniaasta: </label>
+        <?php
+            echo '<select name="birthyearinput" id="birthyearinput">' ."\n";
+            echo '<option value="" selected disabled>aasta</option>' ."\n";
+            for ($i = date("Y") - 15; $i >= date("Y") - 110; $i --){
+                echo '<option value="' .$i .'"';
+                if ($i == $birthyear){
+                    echo " selected";
+                }
+                echo ">" .$i ."</option> \n";
+            }
+            echo "</select> \n";
+        ?>
+        <br>
+        <span style="color:firebrick"><?php echo $birthdateerror ." " .$birthdayerror ." " .$birthmontherror ." " .$birthyearerror; ?></span><br>
         <label>Sugu: </label>
         <input type="radio" name="genderinput" id="gendermale" value="1" <?php if($gender == "1"){echo " checked";}?>>
         <label for="gendermale">Mees</label>
         <input type="radio" name="genderinput" id="genderfemale" value="2" <?php if($gender == "2"){echo " checked";}?>>
         <label for="genderfemale">Naine</label>
         <span style="color:firebrick"><?php echo $gendererror; ?></span><br>
+        <label>Parool: </label>
+        <input type="password" name="passwordinput" id="passwordinput" placeholder="parool">
+        <span style="color:firebrick"><?php echo $passworderror; ?></span><br>
+        <label>Korrake parooli: </label>
+        <input type="password" name="passwordsecondaryinput" id="passwordsecondaryinput" placeholder="parool">
+        <span style="color:firebrick"><?php echo $passwordmatcherror; ?></span><br>
+        
         <input type="submit" name="registersubmit" id="registersubmit" value="Registreeri">
-        <p><?php echo $storeinfo; ?></p>
+        <p><?php echo "&nbsp; &nbsp; &nbsp;" .$notice; ?></p>
     </form>
 </body>
 </html>
