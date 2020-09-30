@@ -105,7 +105,7 @@ $imghtml ='<img src="vp_pics/'. $picfiles[$picnum] .'" alt="pildid TLUst" class=
         <p>Leht avati: <?php echo $weekdaynameset[$weekdaynow-1].", ". $currentdate.'. '.$monthnameset[$monthnamenow-1].' '.$currentyear.', kell '. $fulltimenow; ?></p>
         <p><?php echo "Parajasti on ".$partofday."."; ?></p>
         <p><?php echo $unidays." Läbitud on ".$semestercompletion."% semestrist.";?></p>
-        <p><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></p>
+        <p><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></font></p>
         <p><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></p>
         <p><?php echo "Praeguseks on semestris kestnud ".$dayscompletedsemester." päeva.";?></p>
     </div>
