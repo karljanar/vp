@@ -1,6 +1,7 @@
 <?php
     require("header.php");
     require("fnc_film.php");
+    $username = "";
     //kas vajutati salvestus nuppu
     $inputerror = "";
     $filmhtml = "";

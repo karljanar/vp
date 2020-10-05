@@ -37,8 +37,13 @@
         }
         if(!empty($_POST["emailinput"])){
             $email = test_input($_POST["emailinput"]);
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo("$email is a valid email address");
+              } else {
+                $emailerror = "Sisestage reaalne e-post. ";
+              }
         } else{
-            $emailerror = "Sisestage e-post.";
+            $emailerror .= "Sisestage e-post.";
         }
         if(isset($_POST["birthdayinput"])){
             $birthday = intval($_POST["birthdayinput"]);
@@ -109,13 +114,8 @@
     <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
     <hr>
     <div class="topnav">
-        <a href="home.php">Kodu</a>
-        <a href="writethoughts.php">Kirjuta mõtteid</a>
-        <a href="thoughts.php">Loe mõtteid</a>
-        <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="addfilms.php">Lisa filme</a>
-        <a class="active" href="account.php">Kasutaja</a>
-        <a href="https://github.com/karljanar/vp">GitHub</a>
+        <a href="page.php">Avaleht</a>
+        <a class="active" href="account.php">Registreeri</a>
     </div>
     <hr>
     <form class="register" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

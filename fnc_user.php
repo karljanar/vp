@@ -26,7 +26,7 @@
     function signin($email, $password){
         $result = null;
         $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
-        $conn->prepare("SELECT password FROM vpusers WHERE email = ?");
+        $stmt = $conn->prepare("SELECT password FROM vpusers WHERE email = ?");
         echo $conn->error;
         $stmt->bind_param("s", $email);
         $stmt->bind_result($passwordfromdb);
@@ -34,10 +34,11 @@
             //kui kask timmis
             if($stmt->fetch()){
                 //kui tuli vaste timmis kasutaja
-                if($password_verify($password, $passwordfromdb)){
+                if(password_verify($password, $passwordfromdb)){
                     //parool korras
                     $stmt->close();
                     $conn->close();
+                    $result = "ok";
                     header("Location: home.php");
                     exit();
                 } else {

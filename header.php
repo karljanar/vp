@@ -1,6 +1,6 @@
 <?php
-$username = "Janar";
 require("../../config.php");
+$username = "";
 ?>
 <!DOCTYPE html>
 <html lang="et">
