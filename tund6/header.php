@@ -6,39 +6,18 @@ require("../../config.php");
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <link rel='icon' href='img/vp_logo_small.png' type='image/x-icon' >
-    <title>Veebiproge</title>
+    <title><?php echo $username; ?> ehitab lehte</title>
     <style>
-        <?php 
-            echo "body {\n";
-            if(isset($_SESSION["userbgcolor"])){
-                echo "\t \t background-color:" .$_SESSION["userbgcolor"] .";\n";
-            }else{
-                echo "\t \t background-color: #39004d; \n";
-            }
-            echo "\t \t background-repeat: no-repeat; \n";
-            echo "\t \t background-size: auto; \n";
-            if(isset($_SESSION["usertxtcolor"])){
-                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
-            }else{
-                echo "\t \t color: #f5f5f5; \n";
-            }
-            echo "\t \t font-family: Arial, Helvetica, sans-serif; \n";
-            echo "\t \t }\n";
-            ?>
-        /*body {
+        body {
+
             background-color: #2e3440;
             background-repeat: no-repeat;
             background-size: auto;
             color: whitesmoke;
             font-family: Arial, Helvetica, sans-serif;
-        }*/
+        }
         .topnav {
-            <?php 
-            if(isset($_SESSION["userbgcolor"])){
-                echo "\t \t background-color:" .$_SESSION["userbgcolor"] .";\n";
-            }else{
-                echo "\t \t background-color: #39004d; \n";
-            };?>
+            background-color: #2e3440;
             overflow: hidden;
             text-align: center;
         }

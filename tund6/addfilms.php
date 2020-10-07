@@ -1,6 +1,5 @@
 <?php
-    require("usesession.php");
-    $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
+    $username = "";
     require("header.php");
     require("fnc_film.php");
     //kas vajutati salvestus nuppu
@@ -35,9 +34,8 @@
         <a href="thoughts.php">Loe mõtteid</a>
         <a href='listfilms.php'>Filmide nimekiri</a>
         <a class="active" href='addfilms.php'>Lisa filme</a>
-        <a href="userprofile.php">Profiil</a>
+        <a href="account.php">Kasutaja</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
-        <p><a href="?logout=1">Logi välja</a></p>
     </div>
     <!--<ul>
         <li><a href="home.php">Home</a> loetelu

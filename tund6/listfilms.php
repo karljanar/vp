@@ -1,9 +1,8 @@
 <?php
-    require("usesession.php");
-    $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
-    require("header.php");
-    require("fnc_film.php");
-    $filmhtml = readfilms();
+$username = "";
+require("header.php");
+require("fnc_film.php");
+$filmhtml = readfilms();
 ?>
         </style>
     </head>
@@ -16,9 +15,7 @@
         <a href="thoughts.php">Loe mõtteid</a>
         <a class="active" href='listfilms.php'>Filmide nimekiri</a>
         <a href="addfilms.php">Lisa filme</a>
-        <a href="userprofile.php">Profiil</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
-        <p><a href="?logout=1">Logi välja</a></p>
     </div>
     <!--<ul>
         <li><a href="home.php">Home</a> loetelu

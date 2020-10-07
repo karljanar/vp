@@ -1,18 +1,20 @@
 <?php
-require("header.php");
-$database = 'if20_karljanar_ki_1';
-if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
-    //loome uhenduse
-    $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
-    //valmistan ette sql kasu andmete kirjutamiseks
-    $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES (?)");
-    echo $conn->error;
-    // i -int, d- dec, s-str
-    $stmt->bind_param("s", $_POST["ideainput"]);
-    $stmt->execute();
-    $stmt->close();
-    $conn->close();
-}
+    require("usesession.php");
+    $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
+    require("header.php");
+    $database = 'if20_karljanar_ki_1';
+    if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
+        //loome uhenduse
+        $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
+        //valmistan ette sql kasu andmete kirjutamiseks
+        $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES (?)");
+        echo $conn->error;
+        // i -int, d- dec, s-str
+        $stmt->bind_param("s", $_POST["ideainput"]);
+        $stmt->execute();
+        $stmt->close();
+        $conn->close();
+    }
 
 ?>
     </style>
@@ -26,7 +28,9 @@ if(isset($_POST["ideasubmit"]) and !empty($_POST["ideainput"])){
         <a href="thoughts.php">Loe mõtteid</a>
         <a href='listfilms.php'>Filmide nimekiri</a>
         <a href="addfilms.php">Lisa filme</a>
+        <a href="userprofile.php">Profiil</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
+        <p><a href="?logout=1">Logi välja</a></p>
     </div>
     <hr>
     <form method="POST">
