@@ -49,9 +49,21 @@
                     $_SESSION["userfirstname"] = $firstnamefromdb;
                     $_SESSION["userlastname"] = $lastanmefromdb;
                     $stmt->close();
+                    $stmt = $conn->prepare("SELECT bgcolor, txtcolor FROM vpuserprofiles WHERE userid = ?");
+					$stmt->bind_param("i", $_SESSION["userid"]);
+					$stmt->bind_result($bgcolorfromdb, $txtcolorfromdb);
+					$stmt->execute();
+					if($stmt->fetch()){
+						$_SESSION["usertxtcolor"] = $txtcolorfromdb;
+						$_SESSION["userbgcolor"] = $bgcolorfromdb;
+					} else {
+						$_SESSION["usertxtcolor"] = "#2e3440";
+						$_SESSION["userbgcolor"] = "#b22222";
+					}
+					$stmt->close();
                     //kasutaja profiil tausta ja teksti varv
-                    $_SESSION["userbgcolor"] = "#2e3440";
-                    $_SESSION["usertxtcolor"] = "#b22222";
+                    #$_SESSION["userbgcolor"] = "#2e3440";
+                    #$_SESSION["usertxtcolor"] = "#b22222";
                     $conn->close();
                     $result = "ok";
                     header("Location: home.php");
@@ -70,3 +82,52 @@
         $conn->close();
         return $result;
     }
+
+
+    function storeuserprofile($description, $bgcolor, $txtcolor){
+        $result = null;
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT vpuserprofiles_id FROM vpuserprofiles WHERE userid = ?");
+		echo $conn->error;
+		$stmt->bind_param("i", $_SESSION["userid"]);
+        $stmt->execute();
+        if($stmt->fetch()){
+			$stmt->close();
+			$stmt= $conn->prepare("UPDATE vpuserprofiles SET description = ?, bgcolor = ?, txtcolor = ? WHERE userid = ?");
+			echo $conn->error;
+			$stmt->bind_param("sssi", $description, $bgcolor, $txtcolor, $_SESSION["userid"]);
+		} else {
+			$stmt->close();
+			$stmt = $conn->prepare("INSERT INTO vpuserprofiles (userid, description, bgcolor, txtcolor) VALUES(?,?,?,?)");
+			echo $conn->error;
+			$stmt->bind_param("isss", $_SESSION["userid"], $description, $bgcolor, $txtcolor);
+		}
+        if($stmt->execute()){
+            $result = "ok";
+        }else{
+            $result = $result = $stmt->error;
+        }
+        $stmt->close();
+        $conn->close();
+        return $result;
+    }
+
+
+
+	function readuserdescription(){
+		$result = null;
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT description FROM vpuserprofiles WHERE userid = ?");
+        echo $conn->error;
+        $stmt->bind_param("i", $_SESSION["userid"]);
+        $stmt->bind_result($descriptionfromdb);
+        $stmt->execute();
+        if($stmt->fetch()){
+            $result = $descriptionfromdb;
+        }else{
+            $result = $conn->error;
+        }
+        $stmt->close();
+        $conn->close();
+        return $result;
+	}

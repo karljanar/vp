@@ -89,7 +89,13 @@
 
     .time {
         float: left;
-        color: whitesmoke;
+        <?php
+        if(isset($_SESSION["usertxtcolor"])){
+                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
+            }else{
+                echo "\t \t color: #f5f5f5; \n";
+            }
+            ?>
         text-align: justify;
         padding: 14px 16px;
         text-decoration: none;
@@ -97,7 +103,13 @@
     }
     .login {
         float:right;
-        color: whitesmoke;
+        <?php
+        if(isset($_SESSION["usertxtcolor"])){
+                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
+            }else{
+                echo "\t \t color: #f5f5f5; \n";
+            }
+            ?>
         text-align: justify;
         padding: 14px 16px;
         text-decoration: none;
