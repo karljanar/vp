@@ -106,13 +106,12 @@
             $result = "ok";
         }else{
             $result = $result = $stmt->error;
+            echo $result;
         }
         $stmt->close();
         $conn->close();
         return $result;
     }
-
-
 
 	function readuserdescription(){
 		$result = null;

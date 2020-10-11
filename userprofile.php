@@ -8,12 +8,14 @@
     $notice = "";
     $userdescription = readuserdescription(); //edaspidi pyyab andmebaasist lugeda, kui oleams, kasutab seda 
     if(isset($_POST["profilesubmit"])){
+        $description = test_input($_POST["descriptioninput"]);
         $result = storeuserprofile($description, $_POST["bgcolorinput"], $_POST["txtcolorinput"]);
         //peaks tulema ok v error
         if($result == "ok"){
             $notice = "Kasutaja profiil on salvestatud.";
             $_SESSION["userbgcolor"] = $_POST["bgcolorinput"];
             $_SESSION["usertxtcolor"] = $_POST["txtcolorinput"];
+            header("Refresh:0");
         }else{
             $notice = "Profilli salvestamine ebaõnnestus.".$result;
         }

@@ -35,9 +35,9 @@ require("../../config.php");
         .topnav {
             <?php 
             if(isset($_SESSION["userbgcolor"])){
-                echo "\t \t background-color:" .$_SESSION["userbgcolor"] .";\n";
+                echo "background-color:" .$_SESSION["userbgcolor"] .";\n";
             }else{
-                echo "\t \t background-color: #39004d; \n";
+                echo "background-color: #39004d; \n";
             };?>
             overflow: hidden;
             text-align: center;
@@ -46,9 +46,9 @@ require("../../config.php");
             float: none;
             <?php
             if(isset($_SESSION["usertxtcolor"])){
-                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
+                echo "color:" .$_SESSION["usertxtcolor"] .";\n";
             }else{
-                echo "\t \t color: #f5f5f5; \n";
+                echo "color: #f5f5f5; \n";
             }
             ?>
             text-align: center;
@@ -64,12 +64,12 @@ require("../../config.php");
             background-color: #56A3A6;
             color: white;
         }
-      .center {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 80%;
-      }
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
       
 
 
