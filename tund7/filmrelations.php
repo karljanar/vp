@@ -15,38 +15,38 @@
       if(!empty($_POST["filminput"])){
           $selectedfilm = intval($_POST["filminput"]);
       } else {
-          $genrenotice = " Vali film!";
+          $notice = " Vali film!";
       }
       if(!empty($_POST["filmgenreinput"])){
           $selectedgenre = intval($_POST["filmgenreinput"]);
       } else {
-          $genrenotice .= " Vali žanr!";
+          $notice .= " Vali žanr!";
       }
-      if(!empty($selectedfilm) and !empty($selectedgenre)){
-          $genrenotice = storenewgenrerelation($selectedfilm, $selectedgenre);
+      if(!empty($selectedfilm) and !empty($selectedstudio)){
+          $notice = storenewstudiorelation($selectedfilm, $selectedstudio);
       }
     }
 
-    if(isset($_POST["filmstudiorelationsubmit"])){
+    if(isset($_POST[filmstudiorelationsubmit])){
         if(!empty($_POST["filminput"])){
             $selectedfilm = intval($_POST["filminput"]);
         } else {
-            $studionotice = " Vali Film!";
+            $notice = " Vali Stuudio!";
         }
-        if(!empty($_POST["filmstudiosinput"])){
-            $selectedstudio = intval($_POST["filmstudiosinput"]);
+        if(!empty($_POST["filmstudioinput"])){
+            $selectedstudio = intval($_POST["filmstudioinput"]);
         } else {
-            $studionotice .= " Vali Stuudio!";
+            $notice .= " Vali Stuudio!";
         }
-        if(!empty($selectedfilm) and !empty($selectedstudio)){
-            $studionotice = storenewstudiorelation($selectedfilm, $selectedstudio);
+        if(!empty($selectedfilm) and !empty($selectedgenre)){
+            $notice = storenewgenrerelation($selectedfilm, $selectedgenre);
         }
 
     }
     
     $filmselecthtml = readmovietoselect($selectedfilm);
     $filmgenreselecthtml = readgenretoselect($selectedgenre);
-    $filmstudiotoselecthtml = readstudiotoselect($selectedstudio);
+    $filmcompanyselecthtml = readstudioselect($selectedstudio);
 ?>
         .form {
         float:left;
@@ -67,7 +67,6 @@
         <a href="writethoughts.php">Kirjuta mõtteid</a>
         <a href="thoughts.php">Loe mõtteid</a>
         <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="listfilmpersons.php">Näitlejad</a>
         <a href='addfilms.php'>Lisa filme</a>
         <a class='active' href="filmrelations.php">Filmi seosed</a>
         <a href="userprofile.php">Profiil</a>
@@ -84,12 +83,10 @@
 		echo $filmgenreselecthtml;
 	?>
 	<input type="submit" name="filmrelationsubmit" value="Salvesta"><span><?php echo $genrenotice; ?></span>
-    <br>
-    <hr>
     <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <?php
 		echo $filmselecthtml;
-		echo $filmstudiotoselecthtml;
+		echo $filmstudioselecthtml;
 	?>
 	<input type="submit" name="filmstudiorelationsubmit" value="Salvesta"><span><?php echo $studionotice; ?></span>
     </body>

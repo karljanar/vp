@@ -34,7 +34,6 @@
         <a href="writethoughts.php">Kirjuta mõtteid</a>
         <a href="thoughts.php">Loe mõtteid</a>
         <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="listfilmpersons.php">Näitlejad</a>
         <a class="active" href='addfilms.php'>Lisa filme</a>
         <a href="filmrelations.php">Filmi seosed</a>
         <a href="userprofile.php">Profiil</a>

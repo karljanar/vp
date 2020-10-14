@@ -1,7 +1,13 @@
 <?php
-    require("usesession.php");
-    $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
+    session_start();
     require("header.php");
+    require("fnc_common.php");
+    require("fnc_user.php");
+    $emailerror = "";
+    $passworderror = "";
+    $email = null;
+    $result = "";
+    $notice = "";
     $fulltimenow = date("H:i:s");
     $currentyear = date("Y");
     $currentdate = date("d");
@@ -61,26 +67,28 @@
         $imghtml .= '<img src="vp_pics/'. $picfiles[$i] .'" alt="pildid TLUst">';
     }*/
     $imghtml ='<img src="vp_pics/'. $picfiles[$picnum] .'" alt="pildid TLUst" class="center">';
-    //logib valja
-   
+    if(isset($_POST["loginsubmit"])){
+        $email = filter_var(($_POST["emailinput"]), FILTER_SANITIZE_STRING);
+        if(!empty($_POST["emailinput"]) and filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        } else{
+            $emailerror .= "Sisestage e-post.";
+        }
+        if(empty($_POST["passwordinput"]) or (strlen($_POST["passwordinput"]) < 8)){
+            $passworderror = "Sisestage parool.";
+        }
+        if(empty($passworderror) and empty($emailerror)){
+            $result = signin($email, $_POST["passwordinput"]);
+            if($result != "ok"){
+                $notice .= 'Tekkis viga! '. $result;
+            }
+        }
+    }
 
 ?>
-    .welcome {
-        float: none;
-        <?php
-        if(isset($_SESSION["usertxtcolor"])){
-                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
-            }else{
-                echo "\t \t color: #f5f5f5; \n";
-            }
-            ?>
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 18px;
-    }
+
     .time {
-        float: none;
+        float: left;
         <?php
         if(isset($_SESSION["usertxtcolor"])){
                 echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
@@ -88,34 +96,34 @@
                 echo "\t \t color: #f5f5f5; \n";
             }
             ?>
-        text-align: center;
+        text-align: justify;
         padding: 14px 16px;
         text-decoration: none;
         font-size: 20px;
     }
-
+    .login {
+        float:right;
+        <?php
+        if(isset($_SESSION["usertxtcolor"])){
+                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
+            }else{
+                echo "\t \t color: #f5f5f5; \n";
+            }
+            ?>
+        text-align: justify;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 18px;
+        display: inline-block;
+    }
     </style>
     </head>
 <body>
     <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
     <hr>
     <div class="topnav">
-        <a class="active" href="home.php">Kodu</a>
-        <a href="writethoughts.php">Kirjuta mõtteid</a>
-        <a href="thoughts.php">Loe mõtteid</a>
-        <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="listfilmpersons.php">Näitlejad</a>
-        <a href="addfilms.php">Lisa filme</a>
-        <a href="filmrelations.php">Filmi seosed</a>
-        <a href="userprofile.php">Profiil</a>
-        <a href="https://github.com/karljanar/vp">GitHub</a>
-        <p><a href="?logout=1">Logi välja</a></p>
-    </div>
-    <hr>
-    <div class="welcome">
-        <h1><?php echo $username; ?>i Probleem </h1>
-        <p>Särkides ja värkides pole probleemi!</p>
-        <p>Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color:deepskyblue">TLU Digitehnoloogiate Instituudis.</a></p>
+        <a class="active" href="page.php">Avaleht</a>
+        <a href="account.php">Registreeri</a>
     </div>
     <hr>
     <div class="time">
@@ -126,9 +134,17 @@
         <p><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></p>
         <p><?php echo "Praeguseks on semester kestnud ".$dayscompletedsemester." päeva.";?></p>
     </div>
-    <hr>
+    <form class="login" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <label>E-post: </label> 
+        <input type="email" name="emailinput" id="emailinput" value="<?php echo $email; ?>">
+        <span style="color:#ff0000"><?php echo $emailerror; ?></span><br>
+        <label>Parool: </label>
+        <input type="password" name="passwordinput" id="passwordinput" placeholder="parool">
+        <span style="color:#ff0000"><?php echo $passworderror; ?></span><br>
+        <input type="submit" name="loginsubmit" id="loginsubmit" value="Logi sisse">
+        <p><?php echo "&nbsp; &nbsp; &nbsp;" .$notice; ?></p>
+    </form>
     <?php echo $imghtml; ?>
     <hr>
-     <div style="width:100%;height:0px;position:relative;padding-bottom:75.000%;"><iframe src="https://streamable.com/e/4jljlx?loop=0" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
 </body>
 </html>

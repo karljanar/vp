@@ -34,9 +34,8 @@
         <a href="writethoughts.php">Kirjuta mõtteid</a>
         <a href="thoughts.php">Loe mõtteid</a>
         <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="listfilmpersons.php">Näitlejad</a>
-        <a class="active" href='addfilms.php'>Lisa filme</a>
-        <a href="filmrelations.php">Filmi seosed</a>
+        <a href='addfilms.php'>Lisa filme</a>
+        <a class='active' href="filmlinks.php">Filmi seosed</a>
         <a href="userprofile.php">Profiil</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
         <p><a href="?logout=1">Logi välja</a></p>
