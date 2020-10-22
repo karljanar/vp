@@ -8,13 +8,13 @@
 ?>
 
 
-        table, td, th {
+        table {
             float: none;
             <?php
             if(isset($_SESSION["usertxtcolor"])){
-                    echo "color:" .$_SESSION["usertxtcolor"] .";\n";
+                    echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
                 }else{
-                    echo "color: #f5f5f5; \n";
+                    echo "\t \t color: #f5f5f5; \n";
                 }
                 ?>
             text-align: center;
@@ -22,16 +22,19 @@
             text-decoration: none;
             font-size: 20px;
             border-collapse: collapse;
+            border: 2px solid black;
             <?php
             if(isset($_SESSION["usertxtcolor"])){
-                echo "border:" ." " ."2px solid " .$_SESSION["usertxtcolor"] .";\n";
+                echo "\t \t border:" ." " ."2px" .$_SESSION["usertxtcolor"] .";\n";
             }else{
-                echo "border: 2px solid #f5f5f5; \n";
+                echo "\t \t border: 2px #f5f5f5; \n";
                 }
             ?>
         }
 
-
+        table, td, th {
+            border: 1px solid black;
+        }
         </style>
     </head>
     <body>
@@ -65,3 +68,4 @@
     </body>
 </html>
 
+ 

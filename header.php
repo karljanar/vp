@@ -13,7 +13,7 @@ require("../../config.php");
             if(isset($_SESSION["userbgcolor"])){
                 echo "\t \t background-color:" .$_SESSION["userbgcolor"] .";\n";
             }else{
-                echo "\t \t background-color: #39004d; \n";
+                echo "\t \t background-color: #2e3440; \n";
             }
             echo "\t \t background-repeat: no-repeat; \n";
             echo "\t \t background-size: auto; \n";
@@ -37,7 +37,7 @@ require("../../config.php");
             if(isset($_SESSION["userbgcolor"])){
                 echo "background-color:" .$_SESSION["userbgcolor"] .";\n";
             }else{
-                echo "background-color: #39004d; \n";
+                echo "background-color: #2e3440; \n";
             };?>
             overflow: hidden;
             text-align: center;

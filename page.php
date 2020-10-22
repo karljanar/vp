@@ -144,7 +144,10 @@
         <input type="submit" name="loginsubmit" id="loginsubmit" value="Logi sisse">
         <p><?php echo "&nbsp; &nbsp; &nbsp;" .$notice; ?></p>
     </form>
+    <img src="img/ivo.jpg" alt="Crocs" width="250" height="300">
+    <hr>
     <?php echo $imghtml; ?>
     <hr>
+
 </body>
 </html>

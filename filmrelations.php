@@ -3,12 +3,18 @@
     $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
     require("header.php");
     require("fnc_filmrelations.php");
+    require("fnc_common.php");
     //kas vajutati salvestus nuppu
     $genrenotice = "";
     $studionotice = "";
     $selectedfilm = "";
     $selectedgenre = "";
     $selectedstudio = "";
+    $personnotice = "";
+    $selectedperson = "";
+    $selectedrole = "";
+    $selectedposition = "";
+    $role = "";
 
     if(isset($_POST["filmrelationsubmit"])){
       //$selectedfilm = $_POST["filminput"];
@@ -41,12 +47,42 @@
         if(!empty($selectedfilm) and !empty($selectedstudio)){
             $studionotice = storenewstudiorelation($selectedfilm, $selectedstudio);
         }
+    }
 
+    if(isset($_POST["personinmovierelationsubmit"])){
+        if(!empty($_POST["filminput"])){
+            $selectedfilm = intval($_POST["filminput"]);
+        } else {
+            $personnotice .= " Vali Film!";
+        }
+        if(!empty($_POST["personinput"])){
+            $selectedperson = intval($_POST["personinput"]);
+        } else {
+            $personnotice .= " Vali Isik!";
+        }
+        if(!empty($_POST["positioninput"])){
+            $selectedposition = intval($_POST["positioninput"]);
+        } else {
+            $personnotice .= " Vali Ametikoht!";
+        }
+        if(!empty($_POST["roleinput"])){
+            $selectedrole = test_input($_POST["roleinput"]);
+        } elseif($_POST["positioninput"] === "2") {
+            $selectedrole = "Režissöör";
+        } else {
+            $personnotice .= " Vali Roll!";
+        }
+        if(!empty($selectedfilm) and !empty($selectedperson) and !empty($selectedposition) and !empty($selectedrole)){
+            $personnotice = storenewpersonrelation($selectedfilm, $selectedperson, $selectedposition, $selectedrole);
+        }
     }
     
     $filmselecthtml = readmovietoselect($selectedfilm);
     $filmgenreselecthtml = readgenretoselect($selectedgenre);
     $filmstudiotoselecthtml = readstudiotoselect($selectedstudio);
+    $personinmovieselecthtml = readpersontoselect($selectedperson);
+    $positionselecthtml = readpositiontoselect($selectedposition);
+
 ?>
         .form {
         float:left;
@@ -74,9 +110,6 @@
         <a href="https://github.com/karljanar/vp">GitHub</a>
         <p><a href="?logout=1">Logi välja</a></p>
     </div>
-    <!--<ul>
-        <li><a href="home.php">Home</a> loetelu
-        </li></ul>-->
     <hr>
     <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <?php
@@ -84,7 +117,6 @@
 		echo $filmgenreselecthtml;
 	?>
 	<input type="submit" name="filmrelationsubmit" value="Salvesta"><span><?php echo $genrenotice; ?></span>
-    <br>
     <hr>
     <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <?php
@@ -92,6 +124,15 @@
 		echo $filmstudiotoselecthtml;
 	?>
 	<input type="submit" name="filmstudiorelationsubmit" value="Salvesta"><span><?php echo $studionotice; ?></span>
+    <hr>
+    <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <?php
+		echo $filmselecthtml;
+        echo $personinmovieselecthtml;
+        echo $positionselecthtml;
+	?>
+    <input type="text" name="roleinput" placeholder="Roll">
+	<input type="submit" name="personinmovierelationsubmit" value="Salvesta"><span><?php echo $personnotice; ?></span>
     </body>
 </html>
 

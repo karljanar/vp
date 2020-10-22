@@ -101,7 +101,6 @@
                 $notice = "Seose salvestamisel tekkis tehniline tõrge: " .$stmt->error;
             }
         }
-        
         $stmt->close();
         $conn->close();
         return $notice;
@@ -193,3 +192,84 @@
         $conn->close();
         return $notice;
     }
+
+    function readpersontoselect($selected){
+        $notice = "<p>Isikut ei leitud</p>";
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT person_id, first_name, last_name FROM person");
+        echo $conn->error;
+        $stmt->bind_result($idfromdb, $firstnamefromdb, $lastnamefromdb);
+        $stmt->execute();
+        $persons = "";
+        while($stmt->fetch()){
+            $persons .= '<option value="' .$idfromdb .'"';
+            if(intval($idfromdb) == $selected){
+                $persons .=" selected";
+            }
+            $persons .= ">" .$firstnamefromdb ." " .$lastnamefromdb ."</option> \n";
+        }
+        if(!empty($persons)){
+            $notice = '<select name="personinput">' ."\n";
+            $notice .= '<option value="" selected disabled>Vali isik</option>' ."\n";
+            $notice .= $persons;
+            $notice .= "</select> \n";
+        }
+        $stmt->close();
+        $conn->close();
+        return $notice;
+    }
+
+    function readpositiontoselect($selected){
+        $notice = "<p>Ametikohta ei leitud</p>";
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT position_id, position_name FROM position");
+        echo $conn->error;
+        $stmt->bind_result($idfromdb, $positionfromdb);
+        $stmt->execute();
+        $position = "";
+        while($stmt->fetch()){
+            $position .= '<option value="' .$idfromdb .'"';
+            if(intval($idfromdb) == $selected){
+                $position .=" selected";
+            }
+            $position .= ">" .$positionfromdb ."</option> \n";
+        }
+        if(!empty($position)){
+            $notice = '<select name="positioninput">' ."\n";
+            $notice .= '<option value="" selected disabled>Vali ametikoht</option>' ."\n";
+            $notice .= $position;
+            $notice .= "</select> \n";
+        }
+        $stmt->close();
+        $conn->close();
+        return $notice;
+    }
+
+    function storenewpersonrelation($selectedfilm, $selectedperson, $selectedposition, $selectedrole){
+        $notice = "";
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT person_in_movie_id FROM person_in_movie WHERE person_id = ? AND movie_id = ? AND position_id = ? AND role = ?");
+        echo $conn->error;
+        $stmt->bind_param("iiis", $selectedperson, $selectedfilm, $selectedposition, $selectedrole);
+        $stmt->bind_result($idfromdb);
+        $stmt->execute();
+        if($stmt->fetch()){
+            $notice = "Selline seos on juba olemas!";
+        } else {
+            $stmt->close();
+            $stmt = $conn->prepare("INSERT INTO person_in_movie (person_id, movie_id, position_id, role) VALUES(?,?,?,?)");
+            echo $conn->error;
+            $stmt->bind_param("iiis", $selectedperson, $selectedfilm, $selectedposition, $selectedrole);
+            if($stmt->execute()){
+                $notice = "Uus seos edukalt salvestatud!";
+            } else {
+                $notice = "Seose salvestamisel tekkis tehniline tõrge: " .$stmt->error;
+            }
+        }
+        
+        $stmt->close();
+        $conn->close();
+        return $notice;
+    }
+
+    

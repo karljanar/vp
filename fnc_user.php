@@ -57,13 +57,10 @@
 						$_SESSION["usertxtcolor"] = $txtcolorfromdb;
 						$_SESSION["userbgcolor"] = $bgcolorfromdb;
 					} else {
-						$_SESSION["usertxtcolor"] = "#2e3440";
-						$_SESSION["userbgcolor"] = "#b22222";
+						$_SESSION["usertxtcolor"] = "#f5f5f5";
+						$_SESSION["userbgcolor"] = "#2e3440";
 					}
 					$stmt->close();
-                    //kasutaja profiil tausta ja teksti varv
-                    #$_SESSION["userbgcolor"] = "#2e3440";
-                    #$_SESSION["usertxtcolor"] = "#b22222";
                     $conn->close();
                     $result = "ok";
                     header("Location: home.php");
