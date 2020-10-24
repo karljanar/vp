@@ -15,6 +15,9 @@
     $selectedrole = "";
     $selectedposition = "";
     $role = "";
+    $quotenotice = "";
+    $selectedquote = "";
+    $selectedmovieperson = "";
 
     if(isset($_POST["filmrelationsubmit"])){
       //$selectedfilm = $_POST["filminput"];
@@ -70,10 +73,26 @@
         } elseif($_POST["positioninput"] === "2") {
             $selectedrole = "Režissöör";
         } else {
-            $personnotice .= " Vali Roll!";
+            $personnotice .= " Lisa Roll!";
         }
         if(!empty($selectedfilm) and !empty($selectedperson) and !empty($selectedposition) and !empty($selectedrole)){
             $personnotice = storenewpersonrelation($selectedfilm, $selectedperson, $selectedposition, $selectedrole);
+        }
+    }
+
+    if(isset($_POST["quoterelationsubmit"])){
+        if(!empty($_POST["personinmovieinput"])){
+            $selectedmovieperson = intval($_POST["personinmovieinput"]);
+        } else {
+            $quotenotice .= " Vali Isik, roll, film!";
+        }
+        if(!empty($_POST["quoteinput"])){
+            $selectedquote = test_input($_POST["quoteinput"]);
+        } else {
+            $quotenotice .= "Lisa tsitaat!";
+        }
+        if(!empty($selectedmovieperson) and !empty($selectedquote)){
+            $quotenotice = storenewquoterelation($selectedmovieperson, $selectedquote);
         }
     }
     
@@ -82,7 +101,7 @@
     $filmstudiotoselecthtml = readstudiotoselect($selectedstudio);
     $personinmovieselecthtml = readpersontoselect($selectedperson);
     $positionselecthtml = readpositiontoselect($selectedposition);
-
+    $moviepersonselecthtml = readpersoninmovietoselect($selectedmovieperson);
 ?>
         .form {
         float:left;
@@ -91,48 +110,59 @@
         padding: 14px 16px;
         text-decoration: none;
         font-size: 18px;
-    }
-
+        }
         </style>
     </head>
     <body>
-    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
-    <hr>
-    <div class="topnav">
-        <a href="home.php">Kodu</a>
-        <a href="writethoughts.php">Kirjuta mõtteid</a>
-        <a href="thoughts.php">Loe mõtteid</a>
-        <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="listfilmpersons.php">Näitlejad</a>
-        <a href='addfilms.php'>Lisa filme</a>
-        <a class='active' href="filmrelations.php">Filmi seosed</a>
-        <a href="userprofile.php">Profiil</a>
-        <a href="https://github.com/karljanar/vp">GitHub</a>
-        <p><a href="?logout=1">Logi välja</a></p>
-    </div>
-    <hr>
-    <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <?php
-		echo $filmselecthtml;
-		echo $filmgenreselecthtml;
-	?>
-	<input type="submit" name="filmrelationsubmit" value="Salvesta"><span><?php echo $genrenotice; ?></span>
-    <hr>
-    <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <?php
-		echo $filmselecthtml;
-		echo $filmstudiotoselecthtml;
-	?>
-	<input type="submit" name="filmstudiorelationsubmit" value="Salvesta"><span><?php echo $studionotice; ?></span>
-    <hr>
-    <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <?php
-		echo $filmselecthtml;
-        echo $personinmovieselecthtml;
-        echo $positionselecthtml;
-	?>
-    <input type="text" name="roleinput" placeholder="Roll">
-	<input type="submit" name="personinmovierelationsubmit" value="Salvesta"><span><?php echo $personnotice; ?></span>
+        <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
+        <hr>
+        <div class="topnav">
+            <a href="home.php">Kodu</a>
+            <a href="writethoughts.php">Kirjuta mõtteid</a>
+            <a href="thoughts.php">Loe mõtteid</a>
+            <a href='listfilms.php'>Filmide nimekiri</a>
+            <a href="listfilmpersons.php">Näitlejad</a>
+            <a href='addfilms.php'>Lisa filme</a>
+            <a class='active' href="filmrelations.php">Filmi seosed</a>
+            <a href="userprofile.php">Profiil</a>
+            <a href="https://github.com/karljanar/vp">GitHub</a>
+            <p><a href="?logout=1">Logi välja</a></p>
+        </div>
+        <hr>
+
+        <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <label>Seos filmi ja zanri vahel: </label>
+            <?php
+                echo $filmselecthtml;
+                echo $filmgenreselecthtml;
+            ?>
+        <input type="submit" name="filmrelationsubmit" value="Salvesta"><span><?php echo $genrenotice; ?></span>
+        <hr>
+        <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <label>Seos filmi ja stuudio vahel: </label>
+            <?php
+                echo $filmselecthtml;
+                echo $filmstudiotoselecthtml;
+            ?>
+        <input type="submit" name="filmstudiorelationsubmit" value="Salvesta"><span><?php echo $studionotice; ?></span>
+        <hr>
+        <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <label>Seos filmi ja isiku vahel: </label>
+            <?php
+                echo $filmselecthtml;
+                echo $personinmovieselecthtml;
+                echo $positionselecthtml;
+            ?>
+        <input type="text" name="roleinput" placeholder="Roll">
+        <input type="submit" name="personinmovierelationsubmit" value="Salvesta"><span><?php echo $personnotice; ?></span>
+        <hr>
+        <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <label>Tsitaat: </label>
+            <?php
+                echo $moviepersonselecthtml;
+            ?>
+            <input type="text" name="quoteinput" placeholder="Tsitaat">
+        <input type="submit" name="quoterelationsubmit" value="Salvesta"><span><?php echo $quotenotice; ?></span>
     </body>
 </html>
 

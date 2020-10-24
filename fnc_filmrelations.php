@@ -272,4 +272,56 @@
         return $notice;
     }
 
+    function storenewquoterelation($selectedpersoninmovie, $selectedquote){
+        $notice = "";
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT quote_id FROM quote WHERE quote_text = ? AND person_in_movie_id = ?");
+        echo $conn->error;
+        $stmt->bind_param("si", $selectedquote, $selectedpersoninmovie);
+        $stmt->bind_result($idfromdb);
+        $stmt->execute();
+        if($stmt->fetch()){
+            $notice = "Selline seos on juba olemas!";
+        } else {
+            $stmt->close();
+            $stmt = $conn->prepare("INSERT INTO quote (quote_text, person_in_movie_id) VALUES(?,?)");
+            echo $conn->error;
+            $stmt->bind_param("si", $selectedquote, $selectedpersoninmovie);
+            if($stmt->execute()){
+                $notice = "Uus seos edukalt salvestatud!";
+            } else {
+                $notice = "Seose salvestamisel tekkis tehniline tõrge: " .$stmt->error;
+            }
+        }
+        
+        $stmt->close();
+        $conn->close();
+        return $notice;
+    }
+
     
+    function readpersoninmovietoselect($selected){
+        $notice = "<p>Kahjuks ei leidnud filmitegelasi.</p>";
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+        $stmt = $conn->prepare("SELECT person_in_movie_id, first_name, last_name, role, title FROM person_in_movie JOIN person ON person.person_id = person_in_movie.person_id JOIN movie ON movie.movie_id = person_in_movie.movie_id");        
+        echo $conn->error;
+        $stmt->bind_result($idfromdb, $firstnamefromdb, $lastnamefromdb, $rolefromdb, $titlefromdb);
+        $stmt->execute();
+        $personinmovie = "";
+        while($stmt->fetch()){
+            $personinmovie .= '<option value="' .$idfromdb .'"';
+            if(intval($idfromdb) == $selected){
+                $personinmovie .=" selected";
+            }
+            $personinmovie .= ">" .$firstnamefromdb ." " .$lastnamefromdb ." - " .$rolefromdb ." - " .$titlefromdb ."</option> \n";
+        }
+        if(!empty($personinmovie)){
+            $notice = '<select name="personinmovieinput">' ."\n";
+            $notice .= '<option value="" selected disabled>Vali inimene, roll, film</option>' ."\n";
+            $notice .= $personinmovie;
+            $notice .= "</select> \n";
+        $stmt->close();
+        $conn->close();
+        return $notice;
+        }
+    }
