@@ -159,7 +159,7 @@
 				$notice = "See quote on juba andmebaasis!";
 			} else {
 				$stmt->close();
-				$stmt = $conn->prepare("INSERT INTO quote (quote_text) VALUES (?)");
+				$stmt = $conn->prepare("INSERT INTO quote (quote_text, person_in_movie_id) VALUES (?, NULL)");
 				echo $conn->error;
 				$stmt->bind_param("s", $quote_text);
 				if($stmt->execute()) {

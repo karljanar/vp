@@ -175,6 +175,9 @@
 		} else {
 			$quoteerror = "Quote sisestamata!";
 		}
+		if(empty($quoteerror)){
+			$quotenotice = addquote($quotetext);
+		}
 	}
 	require("header.php");
 ?>
