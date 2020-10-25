@@ -107,6 +107,7 @@
         <a href="listfilmpersons.php">Näitlejad</a>
         <a href="addfilms.php">Lisa filme</a>
         <a href="filmrelations.php">Filmi seosed</a>
+        <a href="movieinfo.php">Filmi info</a>
         <a href="userprofile.php">Profiil</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
         <p><a href="?logout=1">Logi välja</a></p>
