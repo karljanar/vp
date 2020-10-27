@@ -18,7 +18,6 @@
 	$positionnotice = null; 
 	$genrenotice = null;
 	$companynotice = null;
-	$quotenotice = null;
 	
 	$firstnameerror = null;
 	$lastnameerror = null; 
@@ -36,7 +35,6 @@
 	$genredescriptionerror = null; 
 	$companyerror = null; 
 	$companyaddresserror = null;
-	$quoteerror = null;
 	$monthnameset = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
 	
 	if(isset($_POST["personsubmit"])) {
@@ -348,17 +346,6 @@
 	<input type="submit" name="companysubmit" value="Salvesta tootja">
   </form>
   <p><?php echo $companynotice; ?></p>
-   
-   <h2>Lisame Quote</h2>
-  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	<label for="quotetextinput">Quote: </label>
-	  <input type="text" name="quotetextinput" placeholder="quote">
-	  <span><?php echo $quoteerror; ?></span>
-	  <br>
-	  <input type="submit" name="quotesubmit" value="Salvesta quote">
-  </form>
-  <p><?php echo $quotenotice; ?></p>
- 
   <hr>
 </body>
 </html>

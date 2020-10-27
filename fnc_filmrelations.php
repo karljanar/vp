@@ -156,7 +156,7 @@
     function readpersoninmovie($sortby, $sortorder){
         $notice = "<p>Kahjuks ei leidnud filmitegelasi.</p>";
         $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
-        $sqlphrase = "SELECT first_name, last_name, role, title FROM person JOIN person_in_movie ON person.person_id = person_in_movie.person_id JOIN movie ON movie.movie_id = person_in_movie.movie_id";
+        $sqlphrase = "SELECT first_name, last_name, position_name, role, title FROM person JOIN person_in_movie ON person.person_id = person_in_movie.person_id JOIN position ON position.position_id = person_in_movie.position_id JOIN  movie ON movie.movie_id = person_in_movie.movie_id";
         if($sortby == 0){
             $stmt = $conn->prepare($sqlphrase);
         }
@@ -169,12 +169,13 @@
         }
         
         echo $conn->error;
-        $stmt->bind_result($firstnamefromdb, $lastnamefromdb, $rolefromdb, $titlefromdb);
+        $stmt->bind_result($firstnamefromdb, $lastnamefromdb, $positionfromdb, $rolefromdb, $titlefromdb);
         $stmt->execute();
         $lines = "";
         while($stmt->fetch()){
             $lines .= "<tr> \n";
             $lines .= "\t <td>" .$firstnamefromdb ." " .$lastnamefromdb ."</td>";
+            $lines .= "\t <td>" .$positionfromdb ."</td>";
             $lines .= "\t <td>" .$rolefromdb ."</td>";
             $lines .= "\t <td>" .$titlefromdb ."</td> \n";
             $lines .= "</tr> \n";
