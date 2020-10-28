@@ -110,6 +110,7 @@
         <a href="movieinfo.php">Filmi info</a>
         <a href="addandmed.php">Lisa infot</a>
         <a href="userprofile.php">Profiil</a>
+        <a href="photoupload.php">Galerii Üles</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
         <p><a href="?logout=1">Logi välja</a></p>
     </div>
