@@ -2,10 +2,10 @@
     require("usesession.php");
     require("header.php");
     require("fnc_common.php");
+    //kas vajutati salvestus nuppu
     require("fnc_photo.php");
-    require("Photoupload_class.php");
 
-  $inputerror = "";
+ $inputerror = "";
   $notice = "";
   $fileuploadsizelimit = 2097152;//1048576;
   $fileuploaddir_orig = "photoupload_orig/";
@@ -18,7 +18,7 @@
   $thumbsize = 100;
   $privacy = 1;
   $alttext = null;
-  $watermark = 'img/overlay.png';
+  
   //kas vajutati salvestusnuppu
   if(isset($_POST["photosubmit"])){
 	//var_dump($_POST);
@@ -58,32 +58,40 @@
 	}
 	
 	if(empty($inputerror)){
-        //votame kasutusele klassi
-
-        $myphoto = new Photoupload($_FILES["photoinput"], $filetype);
+		//teen väiksemaks
+		//loome image objekti ehk pikslikogumi
+		if($filetype == "jpg"){
+			$mytempimage = imagecreatefromjpeg($_FILES["photoinput"]["tmp_name"]);
+		}
+		if($filetype == "png"){
+			$mytempimage = imagecreatefrompng($_FILES["photoinput"]["tmp_name"]);
+		}
+		if($filetype == "gif"){
+			$mytempimage = imagecreatefromgif($_FILES["photoinput"]["tmp_name"]);
+		}
 		//muudame suurust
-		//$mynewimage = resizePhoto($mytempimage, $photomaxw, $photomaxh, true);
-        
-        $myphoto->resizePhoto($photomaxw, $photomaxh, true);
-        $myphoto->addWatermark($watermark);
-        //salvestame vähendatud pildi faili
-        //$result = savePhotoFile($mynewimage, $filetype, $fileuploaddir_normal .$filename);
-        $result = $myphoto->savePhotoFile($fileuploaddir_normal .$filename);
+		$mynewimage = resizePhoto($mytempimage, $photomaxw, $photomaxh, true);
+		//salvestame vähendatud pildi faili
+		$result = savePhotoFile($mynewimage, $filetype, $fileuploaddir_normal .$filename);
 		if($result == 1){
 			$notice .= "Vähendatud pildi salvestamine õnnestus!";
 		} else {
 			$inputerror .= "Vähendatud pildi salvestamisel tekkis tõrge!";
 		}
+		imagedestroy($mynewimage);
 		
 		//pisipilt
-        //$mynewimage = resizePhoto($mytempimage, $thumbsize, $thumbsize);
-        $myphoto->resizePhoto($thumbsize, $thumbsize);
-		$result = $myphoto->savePhotoFile($fileuploaddir_thumb .$filename);//savePhotoFile($mynewimage, $filetype, $fileuploaddir_thumb .$filename);
+		$mynewimage = resizePhoto($mytempimage, $thumbsize, $thumbsize);
+		$result = savePhotoFile($mynewimage, $filetype, $fileuploaddir_thumb .$filename);
 		if($result == 1){
 			$notice .= "Pisipildi salvestamine õnnestus!";
 		} else {
 			$inputerror .= "Pisipildi salvestamisel tekkis tõrge!";
 		}
+		imagedestroy($mynewimage);
+		
+		imagedestroy($mytempimage);
+		
 		//kui vigu pole, salvestame originaalpildi
 		if(empty($inputerror)){
 			if(move_uploaded_file($_FILES["photoinput"]["tmp_name"], $fileuploaddir_orig .$filename)){
@@ -105,8 +113,7 @@
 			}
 		} else {
 			$inputerror .= " Tekkinud vigade tõttu pildi andmeid ei salvestatud!";
-        }
-        unset($myphoto);
+		}
 	}
   }
 ?>
@@ -155,11 +162,13 @@
         <br>
         <label>Määra privaatsustase</label>
         <br>  
-        <input id="privinput1" name="privinput" type="radio" value="1" <?php if($privacy == 1){echo " checked";} ?>>
-        <label for="privinput1">Privaatne (ise näed)</label>
-        <input id="privinput2" name="privinput" type="radio" value="2" <?php if($privacy == 2){echo " checked";} ?>>
+        <input id="privinput1" name="privinput" type="radio" value="1">
+        <label for="privinput1">Privaatne (ainult ise)</label>
+        <br>  
+        <input id="privinput2" name="privinput" type="radio" value="2">
         <label for="privinput2">Sisseloginud kasutajatele</label>
-        <input id="privinput3" name="privinput" type="radio" value="3" <?php if($privacy == 3){echo " checked";} ?>>
+        <br>  
+        <input id="privinput3" name="privinput" type="radio" value="3">
         <label for="privinput3">Avalik</label>
         <br>
         <input type="submit" name="photosubmit" value="Lae pilt üles">

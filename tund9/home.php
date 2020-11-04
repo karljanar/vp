@@ -2,7 +2,6 @@
     require("usesession.php");
     $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
     require("header.php");
-    require("Generic_class.php");
     $fulltimenow = date("H:i:s");
     $currentyear = date("Y");
     $currentdate = date("d");
@@ -63,10 +62,7 @@
     }*/
     $imghtml ='<img src="vp_pics/'. $picfiles[$picnum] .'" alt="pildid TLUst" class="center">';
     //logib valja
-    //$myfirstclass = new Generic(8);
-    //echo $myfirstclass->$yoursecret;
-    //$myfirstclass->showValue();
-    //unset($myfirstclass);
+   
 
 ?>
     .welcome {
@@ -132,7 +128,6 @@
         <p><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></p>
         <p><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></p>
         <p><?php echo "Praeguseks on semester kestnud ".$dayscompletedsemester." päeva.";?></p>
-        <p><?php $myfirstclass;?></p>
     </div>
     <hr>
     <?php echo $imghtml; ?>
