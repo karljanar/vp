@@ -71,7 +71,7 @@
 ?>
     <hr>
     <div class="main">
-        <h1><?php echo $username; ?> Probleem </h1>
+        <h1><?php echo $username; ?>i Probleem </h1>
         <p>Särkides ja värkides pole probleemi!</p>
         <p>Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color:deepskyblue">TLU Digitehnoloogiate Instituudis.</a></p>
     </div>

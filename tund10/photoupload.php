@@ -47,8 +47,7 @@
 	if($_FILES["photoinput"]["size"] > $fileuploadsizelimit){
 		$inputerror .= " Valitud fail on liiga suur!";
 	}
-	$timestamp = microtime(1) * 10000;
-	$filename = $filenameprefix .$timestamp ."." .$filetype;
+	
 	
 	//kas fail on olemas
 	/* if(file_exists($fileuploaddir_orig .$filename)){
@@ -62,7 +61,7 @@
 		//muudame suurust
 		//$mynewimage = resizePhoto($mytempimage, $photomaxw, $photomaxh, true);
 		//failinimi
-        
+        $filename = $myphoto->rename($filenameprefix);
         $myphoto->resizePhoto($photomaxw, $photomaxh, true);
         $myphoto->addWatermark($watermark);
         //salvestame vähendatud pildi faili
