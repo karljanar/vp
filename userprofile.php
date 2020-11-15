@@ -5,6 +5,7 @@
     require("fnc_common.php");
     require("fnc_user.php");
     $database = 'if20_karljanar_ki_1';
+    //
     $notice = "";
     $userdescription = readuserdescription(); //edaspidi pyyab andmebaasist lugeda, kui oleams, kasutab seda 
     if(isset($_POST["profilesubmit"])){
