@@ -1,8 +1,12 @@
 <?php
+    
     require("usesession.php");
-    $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
     require("header.php");
-    require("Generic_class.php");
+    require("fnc_photo.php");
+    
+    $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
+    
+    //require("Generic_class.php");
     $fulltimenow = date("H:i:s");
     $currentyear = date("Y");
     $currentdate = date("d");
@@ -63,19 +67,30 @@
     }*/
     $imghtml ='<img src="vp_pics/'. $picfiles[$picnum] .'" alt="pildid TLUst" class="center">';
     //logib valja
-    //$myfirstclass = new Generic(8);
+    //$myfirstclass = new Generic(8)
     //echo $myfirstclass->$yoursecret;
     //$myfirstclass->showValue();
     //unset($myfirstclass);
+    
 
+    //tegeleme cookies
+    //setcookie peab olema enne html algust
+    //maarame 1nime,2 vaartus, eluiga(8 oopaeva), kataloog default /, domeen, http v https(vajalik sertifikaat), httponly default false - kas saab ligi ainult labi veebiserveri, 
+    setcookie("vpvisitor", $username, time() + (86400 * 8), "/~karlkin/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
+    $fileuploaddir_thumb = "photoupload_thumb/";
+    $newestImage = latestImage();
 ?>
     <hr>
+    <div class="thumbgallery">
+        <p>Pildike</p>
+        <p><?php echo $newestImage; ?></p>
+    </div>
     <div class="main">
         <h1><?php echo $username; ?> Probleem </h1>
         <p>Särkides ja värkides pole probleemi!</p>
         <p>Leht loodud veebiproge kursuse raames <a href="https://www.tlu.ee/dt" style="color:deepskyblue">TLU Digitehnoloogiate Instituudis.</a></p>
     </div>
-    <hr>
+    
     <div class="main">
         <p>Leht avati: <?php echo $weekdaynameset[$weekdaynow-1].", ". $currentdate.'. '.$monthnameset[$monthnamenow-1].' '.$currentyear.', kell '. $fulltimenow; ?></p>
         <p><?php echo "Parajasti on ".$partofday."."; ?></p>
@@ -83,8 +98,22 @@
         <p><?php echo "Semester kestab kokku ".$semesterdurationdays." päeva.";?></p>
         <p><?php echo "Semestri lõpuni on ".$semesterdurationdaysfromnowdays." päeva.";?></p>
         <p><?php echo "Praeguseks on semester kestnud ".$dayscompletedsemester." päeva.";?></p>
-        <p><?php $myfirstclass;?></p>
+        <p><?php $myfirstclass;?></p> 
     </div>
+    <hr>
+    <?php 
+        if(count($_COOKIE) > 0){
+            echo "<p>Küpsised on lubatud! Leidsin: " .count($_COOKIE) ." küpsist.</p> \n";
+            var_dump($_COOKIE);
+        } else {
+            echo "<p>Küpsised pole lubatud!</p> \n";
+        }
+        if(isset($_COOKIE["vpvisitor"])){
+            echo "<p>Küpsisest selgus viimase külastaja nimi: " .$_COOKIE["vpvisitor"] .". \n";
+        } else {
+            echo "<p>Viimase kasutaja nime ei leitud!</p> \n";
+        }
+    ?>
     <hr>
     <?php echo $imghtml; ?>
     <hr>

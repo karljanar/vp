@@ -176,13 +176,7 @@
 			$quotenotice = addquote($quotetext);
 		}
 	}
-	require("header.php");
 ?>
-
-
-</style>
-</head>
-<body>
     <hr>
   <h2>isikuandmete lisamine</h2>
   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

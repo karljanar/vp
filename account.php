@@ -92,6 +92,7 @@
                 $birthmonth = null;
                 $birthyear = null;
                 $email = null;
+                header("Location: home.php");
             } else {
                 $notice = "Kahjuks tekkis tehniline viga: " .$result;
             }

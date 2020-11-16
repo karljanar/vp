@@ -1,5 +1,9 @@
 <?php
-    session_start();
+    require("SessionManager.class.php");
+    //session_start();
+
+    //sessiooni haldus
+    SessionManager::sessionStart("vp", 0, "/~karlkin/");
     require("fnc_common.php");
     require("fnc_user.php");
     require("../../config.php");

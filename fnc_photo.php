@@ -17,3 +17,117 @@
 		$conn->close();
 		return $notice;
 	} 
+
+	function countPublicPhotos($privacy){
+		$photocount = 0;
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		$stmt = $conn->prepare("SELECT COUNT(vpphotos_id) FROM vpphotos WHERE privacy >= ? AND deleted IS NULL");
+		echo $conn->error;
+		$stmt->bind_param("i", $privacy);
+		$stmt->bind_result($photocountfromdb);
+		$stmt->execute();
+		if($stmt->fetch()){
+			$photocount = $photocountfromdb;
+		}
+		
+		$stmt->close();
+		$conn->close();
+		return $photocount;
+	}
+
+
+	function readAllPublicPhotoThumbs($privacy){
+		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE privacy >= ? AND deleted IS NULL ORDER BY vpphotos_id DESC");
+		echo $conn->error;
+		$stmt->bind_param("i", $privacy);
+		$stmt->bind_result($filenamefromdb, $alttextfromdb);
+		$stmt->execute();
+		$temphtml = null;
+		//<img src="failinimi.laiend" alt="tekst">
+		//<div class=thumbgallery></div>
+		while($stmt->fetch()){
+			$temphtml .= '<div class="thumbgallery">' ."\n";
+			$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs">' ."\n";
+			$temphtml .= "</div> \n";
+		}
+		if(!empty($temphtml)){
+			$thumbshtml = '<div class="galleryarea">' ."\n" .$temphtml ."</div> \n";
+		}
+		$stmt->close();
+		$conn->close();
+		return $thumbshtml;
+	}
+
+	function readAllPublicPhotoThumbsPage($privacy, $limit, $page){
+		$skip = ($page - 1) * $limit;
+		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		//limit x -> tagastab x kirjet LIMIT y, x -> jaetakse avahele y, tagastatakse x kirjet
+		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE privacy >= ? AND deleted IS NULL ORDER BY vpphotos_id DESC LIMIT ?, ?");
+		echo $conn->error;
+		$stmt->bind_param("iii", $privacy, $skip, $limit);
+		$stmt->bind_result($filenamefromdb, $alttextfromdb);
+		$stmt->execute();
+		$temphtml = null;
+		//<img src="failinimi.laiend" alt="tekst">
+		while($stmt->fetch()){
+			$temphtml .= '<div class="thumbgallery">' ."\n";
+			$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs">' ."\n";
+			$temphtml .= "</div> \n";
+		}
+		if(!empty($temphtml)){
+			$thumbshtml = "<div> \n" .$temphtml ."</div> \n";
+		}
+		$stmt->close();
+		$conn->close();
+		return $thumbshtml;
+	}
+
+	function readAllPrivatePhotoThumbsPage($privacy, $limit, $page){
+		$skip = ($page - 1) * $limit;
+		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		//limit x -> tagastab x kirjet LIMIT y, x -> jaetakse avahele y, tagastatakse x kirjet
+		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE privacy = ? AND userid = ? AND deleted IS NULL ORDER BY vpphotos_id DESC LIMIT ?, ?");
+		echo $conn->error;
+		$stmt->bind_param("iiii", $privacy, $_SESSION["userid"],$skip, $limit);
+		$stmt->bind_result($filenamefromdb, $alttextfromdb);
+		$stmt->execute();
+		$temphtml = null;
+		//<img src="failinimi.laiend" alt="tekst">
+		while($stmt->fetch()){
+			$temphtml .= '<div class="thumbgallery">' ."\n";
+			$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs">' ."\n";
+			$temphtml .= "</div> \n";
+		}
+		if(!empty($temphtml)){
+			$thumbshtml = "<div> \n" .$temphtml ."</div> \n";
+		}
+		$stmt->close();
+		$conn->close();
+		return $thumbshtml;
+	}
+
+	function latestImage(){
+		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE privacy >= 2 AND vpphotos_id = (SELECT MAX(vpphotos_id) FROM vpphotos) AND deleted IS NULL");
+		echo $conn->error;
+		$stmt->bind_result($filenamefromdb, $alttextfromdb);
+		$stmt->execute();
+		$temphtml = null;
+		//<img src="failinimi.laiend" alt="tekst">
+		//<div class=thumbgallery></div>
+		$stmt->fetch();
+		$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'">' ."\n";
+		
+		if(!empty($temphtml)){
+			$thumbshtml = '<div class="galleryarea">' ."\n" .$temphtml ."</div> \n";
+		}
+		$stmt->close();
+		$conn->close();
+		return $thumbshtml;
+	}
+
