@@ -25,7 +25,7 @@
 		$page = intval($_GET["page"]);
 	}
 	//$publicphotothumbshtml = readAllPublicPhotoThumbs(2);
-	$privatephotothumbshtml = readAllPrivatePhotoThumbsPage(1, $gallerypagelimit, $page);
+	$publicphotothumbshtml = readAllPrivatePhotoThumbsPage(1, $gallerypagelimit, $page);
 	
   //kas vajutati salvestusnuppu
 
@@ -49,7 +49,7 @@
 		?>
 	</p>
     <?php 
-		echo $privatephotothumbshtml;
+		echo $publicphotothumbshtml;
     ?>
 	
     </body>

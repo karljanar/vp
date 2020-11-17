@@ -53,7 +53,7 @@
 			$temphtml .= "</div> \n";
 		}
 		if(!empty($temphtml)){
-			$thumbshtml = '<div class="galleryarea" id="galleryarea">' ."\n" .$temphtml ."</div> \n";
+			$thumbshtml = '<div class="galleryarea">' ."\n" .$temphtml ."</div> \n";
 		}
 		$stmt->close();
 		$conn->close();
@@ -65,20 +65,20 @@
 		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
 		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
 		//limit x -> tagastab x kirjet LIMIT y, x -> jaetakse avahele y, tagastatakse x kirjet
-		$stmt = $conn->prepare("SELECT vpphotos_id, filename, alttext FROM vpphotos WHERE privacy >= ? AND deleted IS NULL ORDER BY vpphotos_id DESC LIMIT ?, ?");
+		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE privacy >= ? AND deleted IS NULL ORDER BY vpphotos_id DESC LIMIT ?, ?");
 		echo $conn->error;
 		$stmt->bind_param("iii", $privacy, $skip, $limit);
-		$stmt->bind_result($idfromdb, $filenamefromdb, $alttextfromdb);
+		$stmt->bind_result($filenamefromdb, $alttextfromdb);
 		$stmt->execute();
 		$temphtml = null;
 		//<img src="failinimi.laiend" alt="tekst">
 		while($stmt->fetch()){
 			$temphtml .= '<div class="thumbgallery">' ."\n";
-			$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs" data-fn="' .$filenamefromdb .'" data-id="' .$idfromdb .'">' ."\n";
+			$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs">' ."\n";
 			$temphtml .= "</div> \n";
 		}
 		if(!empty($temphtml)){
-			$thumbshtml = '<div class="galleryarea" id="galleryarea">' ."\n" .$temphtml ."</div> \n";
+			$thumbshtml = "<div> \n" .$temphtml ."</div> \n";
 		}
 		$stmt->close();
 		$conn->close();

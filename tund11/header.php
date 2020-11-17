@@ -5,14 +5,10 @@ require("../../config.php");
 <html lang="et">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='icon' href='img/vp_logo_small.png' type='image/x-icon'>
+    <link rel='icon' href='img/vp_logo_small.png' type='image/x-icon' >
     <link rel="stylesheet" type="text/css" href="style/navigation.css">
+    <link rel="stylesheet" type="text/css" href="style/gallery.css">
     <title>Veebiproge</title>
-    <?php
-        if(isset($tolink)){
-            echo $tolink;
-	    }
-    ?>
     <style>
         body{
             <?php 
