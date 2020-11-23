@@ -12,8 +12,9 @@ window.onload = function(){
 	for (let i = 0; i < allThumbs.length; i ++){
 		allThumbs[i].addEventListener("click", openModal);
 	}
-	document.getElementById("modalclose").addEventListener("click", closeModal);
-	document.getElementById("storeRating").addEventListener("click", storeRating);
+    document.getElementById("modalclose").addEventListener("click", closeModal);
+    document.getElementById("modalimg").addEventListener("click", closeModal);
+    document.getElementById("storeRating").addEventListener("click", storeRating);
 }
 
 function openModal(e){
@@ -22,7 +23,7 @@ function openModal(e){
 		document.getElementById("rate" + i).checked = false;
 	}
 	//modalimg.src = photodir + e.target.dataset.fn;
-    modalimg.src = "showphoto.php?photo=" + e.target.dataset.fn;
+    modalimg.src = "showphoto.php?photo=" + e.target.dataset.id;
     //ab oige id dataset.id 
 	photoid = e.target.dataset.id;
 	modalimg.alt = e.target.alt;
@@ -33,6 +34,8 @@ function openModal(e){
 function closeModal(){
 	modal.style.display = "none";
 }
+
+
 
 function storeRating(){
     let rating = 0;

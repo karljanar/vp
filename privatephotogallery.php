@@ -2,6 +2,8 @@
 	require("usesession.php");
 	require("fnc_photo.php");
 	$tolink = '<link rel="stylesheet" type="text/css" href="style/gallery.css">' ."\n";
+	$tolink .= '<link rel="stylesheet" type="text/css" href="style/modal.css">' ."\n";
+	$tolink .= '<script src="javascript/modal.js" defer></script>' ."\n";
 	require("header.php");
 	
 
@@ -33,6 +35,7 @@
   
 ?>
     <hr>
+	
     <h2>Fotogalerii</h2>
 	<p>
 	<?php 

@@ -78,12 +78,12 @@
     //maarame 1nime,2 vaartus, eluiga(8 oopaeva), kataloog default /, domeen, http v https(vajalik sertifikaat), httponly default false - kas saab ligi ainult labi veebiserveri, 
     setcookie("vpvisitor", $username, time() + (86400 * 8), "/~karlkin/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
     $fileuploaddir_thumb = "photoupload_thumb/";
-    $newestImage = latestImage();
+    $newestImage = latestImage(2);
 ?>
     <hr>
     <div class="thumbgallery">
         <p>Pildike</p>
-        <p><?php echo $newestImage; ?></p>
+        <?php echo $newestImage; ?>
     </div>
     <div class="main">
         <h1><?php echo $username; ?> Probleem </h1>

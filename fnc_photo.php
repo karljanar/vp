@@ -110,18 +110,19 @@
 		return $thumbshtml;
 	}
 
-	function latestImage(){
+	function latestImage($privacy){
 		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
 		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
-		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE privacy >= 2 AND vpphotos_id = (SELECT MAX(vpphotos_id) FROM vpphotos) AND deleted IS NULL");
+		$stmt = $conn->prepare("SELECT filename, alttext FROM vpphotos WHERE vpphotos_id = (SELECT MAX(vpphotos_id) FROM vpphotos WHERE privacy >= ?) AND deleted IS NULL");
 		echo $conn->error;
+		$stmt->bind_param("i", $privacy);
 		$stmt->bind_result($filenamefromdb, $alttextfromdb);
 		$stmt->execute();
 		$temphtml = null;
 		//<img src="failinimi.laiend" alt="tekst">
 		//<div class=thumbgallery></div>
 		$stmt->fetch();
-		$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'">' ."\n";
+		$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs">' ."\n";
 		
 		if(!empty($temphtml)){
 			$thumbshtml = '<div class="galleryarea">' ."\n" .$temphtml ."</div> \n";
@@ -129,5 +130,19 @@
 		$stmt->close();
 		$conn->close();
 		return $thumbshtml;
+	}
+
+
+	function getImageInfo($id){
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		$stmt = $conn->prepare("SELECT filename FROM vpphotos WHERE vpphotos_id = ? AND deleted IS NULL");
+		echo $conn->error;
+		$stmt->bind_param("i", $id);
+		$stmt->bind_result($filenamefromdb);
+		$stmt->execute();
+		$stmt->fetch();
+		$stmt->close();
+		$conn->close();
+		return $filenamefromdb;
 	}
 
