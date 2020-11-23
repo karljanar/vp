@@ -2,7 +2,7 @@
     require("usesession.php");
     require("../../config.php");
     $database = "if20_karljanar_ki_1";
-    
+
     $id = $_REQUEST["photoid"];
 	$rating = $_REQUEST["rating"];
 
@@ -20,4 +20,6 @@
 
 	$stmt->close();
 	$conn->close();
-	echo round($score, 2); 
+    echo round($score, 2); 
+    
+    //
