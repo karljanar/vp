@@ -4,7 +4,6 @@
     require("header.php");
     require("fnc_photo.php");
     
-    
     $username = $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"];
     
     //require("Generic_class.php");
@@ -80,7 +79,6 @@
     setcookie("vpvisitor", $username, time() + (86400 * 8), "/~karlkin/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
     $fileuploaddir_thumb = "photoupload_thumb/";
     $newestImage = latestImage(2);
-   
 ?>
     <hr>
     <div class="thumbgallery">

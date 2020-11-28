@@ -65,25 +65,16 @@
 		$thumbshtml = "<p>Kahjuks fotosid ei leitud!</p> \n";
 		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
 		//limit x -> tagastab x kirjet LIMIT y, x -> jaetakse avahele y, tagastatakse x kirjet
-		//$stmt = $conn->prepare("SELECT vpphotos_id, filename, alttext FROM vpphotos WHERE privacy >= ? AND deleted IS NULL ORDER BY vpphotos_id DESC LIMIT ?, ?");
-		$stmt = $conn->prepare("SELECT vpphotos.vpphotos_id, vpusers.firstname, vpusers.lastname, vpphotos.filename, vpphotos.alttext, AVG(vpphotoratings.rating) as AvgValue FROM vpphotos JOIN vpusers ON vpphotos.userid = vpusers.vpusers_id LEFT JOIN vpphotoratings ON vpphotoratings.photoid = vpphotos.vpphotos_id WHERE vpphotos.privacy >= ? AND deleted IS NULL GROUP BY vpphotos.vpphotos_id DESC LIMIT ?, ?");
+		$stmt = $conn->prepare("SELECT vpphotos_id, filename, alttext FROM vpphotos WHERE privacy >= ? AND deleted IS NULL ORDER BY vpphotos_id DESC LIMIT ?, ?");
 		echo $conn->error;
 		$stmt->bind_param("iii", $privacy, $skip, $limit);
-		$stmt->bind_result($idfromdb, $firstnamefromdb, $lastnamefromdb, $filenamefromdb, $alttextfromdb, $avgfromdb);
+		$stmt->bind_result($idfromdb, $filenamefromdb, $alttextfromdb);
 		$stmt->execute();
 		$temphtml = null;
 		//<img src="failinimi.laiend" alt="tekst">
 		while($stmt->fetch()){
 			$temphtml .= '<div class="thumbgallery">' ."\n";
 			$temphtml .= '<img src="' .$GLOBALS["fileuploaddir_thumb"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs" data-fn="' .$filenamefromdb .'" data-id="' .$idfromdb .'">' ."\n";
-			$temphtml .= "<p>" .$firstnamefromdb ." " .$lastnamefromdb ."</p> \n";			
-			$temphtml .= '<p id="score' .$idfromdb .'">';
-			if($avgfromdb == 0){
-				$temphtml .= "Pole hinnatud!";
-			} else {
-				$temphtml .= "Hinnang: " .round($avgfromdb, 2);
-			}
-			$temphtml .= "</p> \n";
 			$temphtml .= "</div> \n";
 		}
 		if(!empty($temphtml)){
@@ -141,4 +132,17 @@
 		return $thumbshtml;
 	}
 
+
+	function getImageInfo($id){
+		$conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
+		$stmt = $conn->prepare("SELECT filename FROM vpphotos WHERE vpphotos_id = ? AND deleted IS NULL");
+		echo $conn->error;
+		$stmt->bind_param("i", $id);
+		$stmt->bind_result($filenamefromdb);
+		$stmt->execute();
+		$stmt->fetch();
+		$stmt->close();
+		$conn->close();
+		return $filenamefromdb;
+	}
 

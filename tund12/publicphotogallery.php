@@ -12,7 +12,7 @@
     $fileuploaddir_normal = "photoupload_normal/";
 	$fileuploaddir_thumb = "photoupload_thumb/";
 	
-	$gallerypagelimit = 5;
+	$gallerypagelimit = 3;
 	$page = 1;
 	$photocount = countPublicPhotos(2);
 

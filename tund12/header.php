@@ -54,21 +54,6 @@ require("../../config.php");
         font-size: 18px;
         }
 
-        .mainl {
-
-        <?php
-        if(isset($_SESSION["usertxtcolor"])){
-                echo "\t \t color:" .$_SESSION["usertxtcolor"] .";\n";
-            }else{
-                echo "\t \t color: #f5f5f5; \n";
-            }
-            ?>
-
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 18px;
-        }
-
         .table {
             float: none;
             <?php
@@ -111,11 +96,10 @@ require("../../config.php");
         <a href="filmrelations.php">Filmi seosed</a>
         <a href="movieinfo.php">Filmi info</a>
         <a href="addandmed.php">Lisa infot</a>
-        <a href="addnews.php">Uudiste lisamine</a>
+        <a href="userprofile.php">Profiil</a>
         <a href="photoupload.php">Galerii Üles</a>
         <a href="publicphotogallery.php">Avalik galerii</a>
         <a href="privatephotogallery.php">Privaatne galerii</a>
-        <a href="userprofile.php">Profiil</a>
         <a href="https://github.com/karljanar/vp">GitHub</a>
         <p><a href="?logout=1">Logi välja</a></p>
     </div>

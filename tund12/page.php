@@ -6,7 +6,6 @@
     SessionManager::sessionStart("vp", 0, "/~karlkin/");
     require("fnc_common.php");
     require("fnc_user.php");
-    require("fnc_news.php");
     require("../../config.php");
     $emailerror = "";
     $passworderror = "";
@@ -89,8 +88,7 @@
             }
         }
     }
-    $news = getNews(5);
-    $news = htmlspecialchars_decode($news);
+
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -194,11 +192,7 @@
         <input type="submit" name="loginsubmit" id="loginsubmit" value="Logi sisse">
         <p><?php echo "&nbsp; &nbsp; &nbsp;" .$notice; ?></p>
     </form>
-    <br>
-    <?php 
-        echo $news;
-    ?>
-    <br>
+    <img src="img/ivo.jpg" alt="Crocs" width="250" height="300">
     <hr>
     <?php echo $imghtml; ?>
     <hr>
