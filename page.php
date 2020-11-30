@@ -89,6 +89,10 @@
             }
         }
     }
+    $notice = "";
+
+    $fileuploaddir_news = "newsphoto/";
+	
     $news = getNews(5);
     $news = htmlspecialchars_decode($news);
 ?>
