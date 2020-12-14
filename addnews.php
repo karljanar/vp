@@ -6,7 +6,6 @@
     //require("Photoupload_class.php");
 
 	$tolink = '<script src="javascript/news.js" defer></script>' ."\n";
-	
 	$tolink .= "\t" .'<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>' ."\n";
 	$tolink .= "\t" .'<script>tinymce.init({selector:"textarea#newsinput", plugins: "link", menubar: "edit",});</script>' ."\n";
 	require("header.php");
@@ -23,7 +22,7 @@
 	$photomaxh = 400;
 	$alttext = null;
 	$filenameprefix = "vpnews_";
-	
+	$watermark = 'img/overlay.png';
   //kas vajutati salvestusnuppu
 	if(isset($_POST["newssubmit"])){
 		if(strlen($_POST["altinput"]) == 0){
@@ -65,6 +64,7 @@
 		$myphoto = new Photoupload($_FILES["photoinput"], $filetype);
 	
 		$myphoto->resizePhoto($photomaxw, $photomaxh, true);
+		$myphoto->addWatermark($watermark);
 		$result = $myphoto->savePhotoFile($fileuploaddir_news .$filename);
 		if($result == 1){
 			$notice .= "Vähendatud pildi salvestamine õnnestus!";
@@ -72,30 +72,13 @@
 			$inputerror .= "Vähendatud pildi salvestamisel tekkis tõrge!";
 		}
 		
-		if(empty($inputerror)){
-			if(move_uploaded_file($_FILES["photoinput"]["tmp_name"], $fileuploaddir_orig .$filename)){
-				$notice .= " Originaalpildi salvestamine õnnestus!";
-			} else {
-				$inputerror .= " Originaalpildi salvestamisel tekkis viga!";
-			}
-		}
-		
-
 
 		if(empty($inputerror)){
-			$nresult = storeNews($newstitle, $news, $expire);
+			$nresult = storeNews($newstitle, $news, $expire, $filename, $alttext);
 			if($nresult == 1){
 				$notice .= " Uudis on salvesatud andmebaasi!";
 			} else {
 				$inputerror .= " Uudise salvestamisel tekkis tõrge!" .$nresult;
-			}
-			$result = storeNewsPhotoData($filename, $alttext);
-			if($result == 1){
-				$notice .= " Pildi info lisati andmebaasi!";
-				$privacy = 1;
-				$alttext = null;
-			} else {
-				$inputerror .= " Pildi info andmebaasi salvestamisel tekkis tõrge!";
 			}
 		}	
 		unset($myphoto);

@@ -5,14 +5,8 @@ require("../../config.php");
 <html lang="et">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='icon' href='img/vp_logo_small.png' type='image/x-icon'>
     <link rel="stylesheet" type="text/css" href="style/navigation.css">
     <title>Veebiproge</title>
-    <?php
-        if(isset($tolink)){
-            echo $tolink;
-	    }
-    ?>
     <style>
         body{
             <?php 
@@ -99,28 +93,10 @@ require("../../config.php");
     </style>
 </head>
 <body>
-    <img src="img/vp_banner.png" alt="Veebiproge kursuse logo." class="center">
     <hr>
     <div class="topnav">
-        <a href="home.php">Kodu</a>
-        <a href="viljavedu.php">Viljavedu sisestus</a>
-        <a href="vilikokk.php">Viljavedu kokkuvõte</a>
-        <a href="writethoughts.php">Kirjuta mõtteid</a>
-        <a href="thoughts.php">Loe mõtteid</a>
-        <a href='listfilms.php'>Filmide nimekiri</a>
-        <a href="listfilmpersons.php">Näitlejad</a>
-        <a href="addfilms.php">Lisa filme</a>
-        <a href="filmrelations.php">Filmi seosed</a>
-        <a href="movieinfo.php">Filmi info</a>
-        <a href="addandmed.php">Lisa infot</a>
-        <a href="addnews.php">Uudiste lisamine</a>
-        <a href="newsedit.php">Uudiste muutmine</a>
-        <a href="photoupload.php">Galerii Üles</a>
-        <a href="publicphotogallery.php">Avalik galerii</a>
-        <a href="privatephotogallery.php">Privaatne galerii</a>
-        <a href="userprofile.php">Profiil</a>
-        <a href="https://github.com/karljanar/vp">GitHub</a>
-        <p><a href="?logout=1">Logi välja</a></p>
+        <a href="viljavedu.php">Viljaveo sisestus</a>
+        <a href="vilikokk.php">Viljaveo kokkuvõte</a>
     </div>
 
 
